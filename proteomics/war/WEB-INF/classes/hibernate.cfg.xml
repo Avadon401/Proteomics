@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+    	<!-- Database connection settings -->
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">ciS6ah7d</property>
+        <property name="hibernate.connection.url">jdbc:mysql://sql1.csbio.unc.edu/signal</property>
+        <property name="hibernate.connection.username">dennisg</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="show_sql">true</property>
+        
+        <!-- Enable Hibernate's automatic session context management -->
+        <property name="current_session_context_class">thread</property>      
+        
+        <!-- Table to class mapping files -->
+        <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/TppProteinIndProtein.hbm.xml"></mapping>
+    </session-factory>
+</hibernate-configuration>

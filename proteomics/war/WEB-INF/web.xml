@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<web-app>
+	<display-name>GWT-Maven-Archetype</display-name>	
+	
+	<welcome-file-list>
+		<welcome-file>Application.html</welcome-file>
+	</welcome-file-list>
+	
+	  <!-- Servlets -->
+	<servlet> 
+		<servlet-name>tppProteinIndProteinServiceImpl</servlet-name> 
+		<servlet-class>edu.unc.major.proteomics.server.service.impl.TppProteinIndProteinServiceImpl</servlet-class> 
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping> 
+		<servlet-name>tppProteinIndProteinServiceImpl</servlet-name> 
+		<url-pattern>/edu.unc.major.proteomics.Application/tppProteinIndProteinService</url-pattern> 
+	</servlet-mapping>
+</web-app>
