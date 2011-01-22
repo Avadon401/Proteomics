@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="edu.unc.major.proteomics.share.model.TppProtein" table="TppProtein" catalog="signal">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <property name="geneID" type="java.lang.Integer">
+            <column name="GeneID" />
+        </property>
+        <property name="proteinDec" type="string">
+            <column name="ProteinDec"/>
+        </property>
+        <property name="probability" type="java.lang.Float">
+            <column name="Probability" />
+        </property>
+        <property name="totalNumPeptides" type="java.lang.Integer">
+            <column name="TOTAL_NUMBER_PEPTIDES" />
+        </property>
+        <property name="uniqueNumPeptides" type="java.lang.Integer">
+            <column name="UNIQUE_NUMBER_PEPTIDES" />
+        </property>
+        <property name="xpressRatioMean" type="java.lang.Float">
+            <column name="XPRESSRATIO_MEAN" />
+        </property>
+        <property name="xpressRatioStdDev" type="java.lang.Float">
+            <column name="XPRESSRATIO_STANDARD_DEV" />
+        </property>
+        <set name="identifiers" lazy="false">
+        	<key column="TppProteinID"/>
+        	<one-to-many class="edu.unc.major.proteomics.share.model.TppProteinIndProtein"/>
+        </set>        
+    </class>
+</hibernate-mapping>
