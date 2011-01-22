@@ -3,6 +3,9 @@
 
       <!-- Inherit the core Web Toolkit stuff.                        -->
       <inherits name='com.google.gwt.user.User'/>
+      
+      <!-- Inherit other frameworks                       -->
+      <inherits name='net.sf.gilead.Gilead4Gwt'/>
 
       <!--  inherit css based theme -->
       <inherits name='com.google.gwt.user.theme.standard.Standard'/>
@@ -10,6 +13,7 @@
       <!-- Specify the app entry point class.                         -->
       <entry-point class='edu.unc.major.proteomics.client.Application'/>
       <servlet path="/tppProteinIndProteinService" class="edu.unc.major.proteomics.server.service.impl.TppProteinIndProteinServiceImpl"/> 
+	  <servlet path="/tppProteinService" class="edu.unc.major.proteomics.server.service.impl.TppProteinServiceImpl"/> 
 
       <!-- Specify the application specific style sheet.              -->
       <stylesheet src='Application.css' />

@@ -15,9 +15,11 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SuggestBox;
 
 import edu.unc.major.proteomics.client.constants.Labels;
-import edu.unc.major.proteomics.share.model.TppProteinIndProtein;
+import edu.unc.major.proteomics.share.model.TppProtein;
 import edu.unc.major.proteomics.share.service.TppProteinIndProteinService;
 import edu.unc.major.proteomics.share.service.TppProteinIndProteinServiceAsync;
+import edu.unc.major.proteomics.share.service.TppProteinService;
+import edu.unc.major.proteomics.share.service.TppProteinServiceAsync;
 
 
 /**
@@ -26,15 +28,20 @@ import edu.unc.major.proteomics.share.service.TppProteinIndProteinServiceAsync;
 public class Application implements EntryPoint
 {
 
-	TppProteinIndProteinServiceAsync proteinService = (TppProteinIndProteinServiceAsync) GWT.create(TppProteinIndProteinService.class);
+	TppProteinIndProteinServiceAsync proteinIndService = (TppProteinIndProteinServiceAsync) GWT.create(TppProteinIndProteinService.class);
+	TppProteinServiceAsync proteinService = (TppProteinServiceAsync) GWT.create(TppProteinService.class);
 
 	/**
 	 * This is the entry point method.
 	 */
 	public void onModuleLoad()
 	{
-		final ServiceDefTarget e = (ServiceDefTarget) proteinService;
+		final ServiceDefTarget e = (ServiceDefTarget) proteinIndService;
 		e.setServiceEntryPoint(GWT.getModuleBaseURL() + "tppProteinIndProteinService");
+		
+		final ServiceDefTarget e2 = (ServiceDefTarget) proteinService;
+		e2.setServiceEntryPoint(GWT.getModuleBaseURL() + "tppProteinService");
+		
 		final MultiWordSuggestOracle oracle = new MultiWordSuggestOracle();
 		final SuggestBox sb = new SuggestBox();
 		final Label sbLabel = new Label(Labels.getSuggestBoxLabel());
@@ -47,10 +54,10 @@ public class Application implements EntryPoint
 
 		RootPanel.get("content").add(searchPanel);
 
-		AsyncCallback<List<TppProteinIndProtein>> callback = new AsyncCallback<List<TppProteinIndProtein>>() {
-			public void onSuccess(List<TppProteinIndProtein> result) {
-				for (TppProteinIndProtein i : result) {
-					oracle.add(i.getGeneName());
+		AsyncCallback<List<TppProtein>> callback = new AsyncCallback<List<TppProtein>>() {
+			public void onSuccess(List<TppProtein> result) {
+				for (TppProtein i : result) {
+					oracle.add(String.valueOf(i.getIdentifiers().size()));
 				}
 				SuggestBox temp = new SuggestBox(oracle);
 				searchPanel.insert(temp, 1);

@@ -16,4 +16,13 @@
 		<servlet-name>tppProteinIndProteinServiceImpl</servlet-name> 
 		<url-pattern>/service/tppProteinIndProteinService</url-pattern> 
 	</servlet-mapping>
+	
+	<servlet> 
+		<servlet-name>tppProteinServiceImpl</servlet-name> 
+		<servlet-class>edu.unc.major.proteomics.server.service.impl.TppProteinServiceImpl</servlet-class> 
+	</servlet>
+	<servlet-mapping> 
+		<servlet-name>tppProteinServiceImpl</servlet-name> 
+		<url-pattern>/service/tppProteinService</url-pattern> 
+	</servlet-mapping>
 </web-app>

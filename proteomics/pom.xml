@@ -12,15 +12,47 @@
   <properties>
 
       <!-- convenience to define GWT version in one place -->
-      <gwt.version>2.0.0</gwt.version>
+      <gwt.version>2.1.0.M2</gwt.version>
 
       <!--  tell the compiler we can use 1.5 -->
-      <maven.compiler.source>1.5</maven.compiler.source>
-      <maven.compiler.target>1.5</maven.compiler.target>
+      <maven.compiler.source>1.6</maven.compiler.source>
+      <maven.compiler.target>1.6</maven.compiler.target>
 
   </properties>
-
-  <dependencies>
+  
+  <repositories>
+<repository>
+   <id>gilead-maven-repo</id>
+   <name>Gilead repo</name>
+   <url>https://gilead.svn.sourceforge.net/svnroot/gilead/gilead/maven-repo/</url>
+  </repository>
+  
+  <repository>
+  <releases>
+    <enabled>true</enabled>
+  </releases>
+  <snapshots>
+    <enabled>false</enabled>
+  </snapshots>
+  <id>gwt-dev-release</id>
+  <url>http://google-web-toolkit.googlecode.com/svn/2.1.0.M2/gwt/maven/</url>
+</repository>
+  
+  
+  </repositories>
+  
+    <dependencies>
+   <dependency>
+    <groupId>net.sf.gilead</groupId>
+    <artifactId>gilead4gwt</artifactId>
+    <version>1.3.2</version>
+    <exclusions>
+      <exclusion>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring</artifactId>
+      </exclusion>
+    </exclusions> 
+  </dependency>
   
   
   <!--  Hibernate dependencies -->
@@ -82,7 +114,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>gwt-maven-plugin</artifactId>
-        <version>1.2</version>
+        <version>1.3.1.google</version>
         <executions>
           <execution>
             <goals>
@@ -93,6 +125,14 @@
         </executions>
         <configuration>
           <runTarget>edu.unc.major.proteomics.Application/Application.html</runTarget>
+          <debugPort>8081</debugPort>
+       <systemPropertyVariable>
+        <property>
+          <name>log4j.configuration</name>
+          <value>log4j.properties</value>
+        </property>
+       </systemPropertyVariable>
+          
         </configuration>
       </plugin>
       <!--

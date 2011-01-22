@@ -17,6 +17,7 @@
         <property name="current_session_context_class">thread</property>      
         
         <!-- Table to class mapping files -->
-        <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/TppProteinIndProtein.hbm.xml"></mapping>
+        <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/TppProteinIndProtein.hbm.xml"/>
+        <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/TppProtein.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

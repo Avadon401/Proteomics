@@ -2,7 +2,9 @@ package edu.unc.major.proteomics.share.model;
 
 import java.io.Serializable;
 
-public class TppProteinIndProtein implements Serializable{
+import net.sf.gilead.pojo.gwt.LightEntity;
+
+public class TppProteinIndProtein extends LightEntity implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
 	
