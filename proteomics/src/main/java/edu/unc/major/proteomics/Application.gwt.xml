@@ -17,6 +17,7 @@
 
       <!-- Specify the application specific style sheet.              -->
       <stylesheet src='Application.css' />
+      <stylesheet src="Autocomplete.css"/>
       
       <!-- Specify the paths to find translatable source -->
       <source path="client"/>

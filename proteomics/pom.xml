@@ -125,7 +125,7 @@
         </executions>
         <configuration>
           <runTarget>edu.unc.major.proteomics.Application/Application.html</runTarget>
-          <debugPort>8081</debugPort>
+          <debugPort>8082</debugPort>
        <systemPropertyVariable>
         <property>
           <name>log4j.configuration</name>
