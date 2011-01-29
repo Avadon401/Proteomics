@@ -11,10 +11,11 @@
 	<servlet> 
 		<servlet-name>tppProteinIndProteinServiceImpl</servlet-name> 
 		<servlet-class>edu.unc.major.proteomics.server.service.impl.TppProteinIndProteinServiceImpl</servlet-class> 
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping> 
 		<servlet-name>tppProteinIndProteinServiceImpl</servlet-name> 
-		<url-pattern>/service/tppProteinIndProteinService</url-pattern> 
+		<url-pattern>/edu.unc.major.proteomics.Application/tppProteinIndProteinService</url-pattern> 
 	</servlet-mapping>
 	
 	<servlet> 
@@ -23,6 +24,15 @@
 	</servlet>
 	<servlet-mapping> 
 		<servlet-name>tppProteinServiceImpl</servlet-name> 
-		<url-pattern>/service/tppProteinService</url-pattern> 
+		<url-pattern>/edu.unc.major.proteomics.Application/tppProteinService</url-pattern> 
+	</servlet-mapping>
+	
+		<servlet> 
+		<servlet-name>ncbiGeneServiceImpl</servlet-name> 
+		<servlet-class>edu.unc.major.proteomics.server.service.impl.NcbiGeneServiceImpl</servlet-class> 
+	</servlet>
+	<servlet-mapping> 
+		<servlet-name>ncbiGeneServiceImpl</servlet-name> 
+		<url-pattern>/edu.unc.major.proteomics.Application/ncbiGeneService</url-pattern> 
 	</servlet-mapping>
 </web-app>

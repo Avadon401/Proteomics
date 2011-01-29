@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="edu.unc.major.proteomics.share.model.NcbiAlias" table="ncbi_aliases" catalog="signal">
+        <id name="id" type="java.lang.Long">
+            <column name="ncbi_alias_id" />
+            <generator class="identity" />
+        </id>
+        <property name="alias" type="string">
+            <column name="alias"/>
+        </property>
+        <set name="genes" table="ncbi_protein_aliases"> 
+        	<key column="ncbi_protein_id"/> 
+        	<many-to-many column="ncbi_alias_id" class="edu.unc.major.proteomics.share.model.NcbiGene"/> 
+        </set> 
+    </class>
+</hibernate-mapping>

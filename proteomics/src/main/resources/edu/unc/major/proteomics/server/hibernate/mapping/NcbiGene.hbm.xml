@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="edu.unc.major.proteomics.share.model.NcbiGene" table="ncbi_proteins" catalog="signal">
+        <id name="id" type="java.lang.Long">
+            <column name="ncbi_protein_id" />
+            <generator class="identity" />
+        </id>
+        <property name="geneID" type="java.lang.Integer">
+            <column name="ncbi_gene_id" />
+        </property>
+        <property name="geneName" type="string">
+            <column name="gene_symbol"/>
+        </property>
+        <property name="description" type="string">
+            <column name="description"/>
+        </property>
+        <set name="aliases" table="ncbi_protein_aliases"> 
+        	<key column="ncbi_alias_id"/> 
+        	<many-to-many column="ncbi_protein_id" class="edu.unc.major.proteomics.share.model.NcbiAlias"/> 
+        </set> 
+		<set name="goTerms" table="ncbi_protein_go">
+	      <key column="ncbi_protein_id" />
+	      <composite-element class="edu.unc.major.proteomics.share.model.NcbiGo">
+	        <!--Composite elements CANNOT be null with a set -->
+	        <property name="goTerm" column="go_term"/>
+	        <property name="category" column="category"/>
+	      </composite-element>
+	    </set> 
+    </class>
+</hibernate-mapping>

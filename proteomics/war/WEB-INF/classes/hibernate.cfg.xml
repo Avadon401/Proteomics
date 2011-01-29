@@ -19,5 +19,7 @@
         <!-- Table to class mapping files -->
         <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/TppProteinIndProtein.hbm.xml"/>
         <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/TppProtein.hbm.xml"/>
+        <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/NcbiGene.hbm.xml"/>
+        <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/NcbiAlias.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

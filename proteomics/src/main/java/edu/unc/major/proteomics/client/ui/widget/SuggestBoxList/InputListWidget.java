@@ -2,7 +2,6 @@ package edu.unc.major.proteomics.client.ui.widget.SuggestBoxList;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 
@@ -18,27 +17,46 @@ import com.google.gwt.event.dom.client.KeyUpEvent;
 import com.google.gwt.event.dom.client.KeyUpHandler;
 import com.google.gwt.event.logical.shared.SelectionEvent;
 import com.google.gwt.event.logical.shared.SelectionHandler;
-import com.google.gwt.user.client.DOM;
-import com.google.gwt.user.client.Element;
 import com.google.gwt.user.client.Event;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestOracle;
 import com.google.gwt.user.client.ui.TextBox;
 
+import edu.unc.major.proteomics.client.Application;
+
 /**
  * Facebook Style Autocompleter.
  * CSS and DIV structure from http://loopj.com/tokeninput/demo.html:
  */
-public class InputListWidget extends Composite {
-    List<String> itemsSelected = new ArrayList<String>();
-    ArrayList<String> options;
-    MultiWordSuggestOracle oracle;
-    Boolean isPaste = false;
-    Boolean isKeyboard = true;
+public abstract class InputListWidget extends Composite {
+    private List<String> itemsSelected = new ArrayList<String>();
+    private MultiWordSuggestOracle oracle;
+    private Boolean isPaste = false;
+    private Boolean isKeyboard = true;
+    private Boolean isUp = false;
+    protected String[] geneNames;
+    final private BulletList list = new BulletList();
+    private String output = "";
+    final private TextBox itemBox = new TextBox();
+    
+    protected AsyncCallback<Boolean[]> callback = new AsyncCallback<Boolean[]>() {
+		public void onSuccess(Boolean[] result) {
+			for (String name : geneNames)
+				GWT.log(name);
+			for (int i = 0; i < result.length; ++i) {
+				deselectItemText(geneNames[i], result[i], list);
+			}		
+            geneNames = null;
+		}
+
+		public void onFailure(Throwable arg0) {
+
+		}
+	};
     
     
     public InputListWidget() {
@@ -46,13 +64,11 @@ public class InputListWidget extends Composite {
     }
 
     public InputListWidget(Collection<String> options) {
-    	this.options = new ArrayList<String>(options);
-    	Collections.sort(this.options);
+    	//Collections.sort(this.options);
     	oracle = new MultiWordSuggestOracle();
     	oracle.addAll(options);
     	
     	sinkEvents(Event.ONPASTE);
-
     	
         SimplePanel panel = new SimplePanel();
         panel.setStyleName("autoSuggestList");
@@ -66,15 +82,14 @@ public class InputListWidget extends Composite {
         </ul>
         <div class="token-input-dropdown-facebook" style="display: none;"/>
          */
-        final BulletList list = new BulletList();
         list.setStyleName("token-input-list-facebook");
         final ListItem item = new ListItem();
         item.setStyleName("token-input-input-token-facebook");
-        final TextBox itemBox = new TextBox();
         itemBox.getElement().setAttribute("style", "outline-color: -moz-use-text-color; outline-style: none; outline-width: medium;");
         final SuggestBox box = new SuggestBox(oracle, itemBox);
+        //final TextBox box = new TextBox();
         box.getElement().setId("suggestion_box");
-        box.setLimit(5);
+        //box.setLimit(10);
         item.add(box);
         list.add(item);
         
@@ -89,7 +104,7 @@ public class InputListWidget extends Composite {
         itemBox.addKeyUpHandler(new KeyUpHandler() {
         	public void onKeyUp(KeyUpEvent event) {
         		if (isKeyboard) {
-        			deselectItem(itemBox, list, false);
+        			deselectItem(itemBox, list, false);    			
         		} else {
         			deselectItem(itemBox, list, false);
         		}
@@ -105,11 +120,11 @@ public class InputListWidget extends Composite {
             		deselectItem(itemBox, list, true);
             	} 
                 if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER ) {
-                        deselectItem(itemBox, list, true);
+                    deselectItem(itemBox, list, true);
                 }
                 // handle backspace
                 if (event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE) {
-                    if ("".equals(itemBox.getValue().trim())) {
+                    if ("".equals(itemBox.getValue().trim()) && list.getWidgetCount() > 1) {
                         ListItem li = (ListItem) list.getWidget(list.getWidgetCount() - 2);
                         Paragraph p = (Paragraph) li.getWidget(0);
                         if (itemsSelected.contains(p.getText())) {
@@ -151,10 +166,10 @@ public class InputListWidget extends Composite {
          */
     }
     
-    private void deselectItemText(final String item, final BulletList list) {
+    private void deselectItemText(final String item, final Boolean match, final BulletList list) {
     	if (item != null && !"".equals(item)) {
     		final ListItem displayItem = new ListItem();
-            if (Collections.binarySearch(options, item) >= 0) {
+            if (match) {
             	displayItem.setStyleName("token-input-token-facebook");
             } else {
             	displayItem.setStyleName("token-input-token-facebook");
@@ -183,16 +198,18 @@ public class InputListWidget extends Composite {
     }
 
     private void deselectItem(final TextBox itemBox, final BulletList list, final Boolean doLast) {
-        if (itemBox.getValue() != null && !"".equals(itemBox.getValue().trim())) {
-        	String output = "";
+        if (itemBox.getValue() != null && !"".equals(itemBox.getValue().trim())) {       	
+        	output = "";
+        	System.out.print(isPaste);
             if (isPaste) {
             	output = parseInput(itemBox, list, true);
             } else if (doLast){
-            	deselectItemText(itemBox.getValue(), list);
+            	output = parseInput(itemBox, list, true);
+            	//itemBox.setValue(itemBox.getValue().toUpperCase());
+            	//getMatches(new String[] {itemBox.getValue()});
             } else {
             	output = itemBox.getText();
             }
-        	
             itemBox.setValue(output);
             itemBox.setFocus(true);
         }
@@ -205,16 +222,23 @@ public class InputListWidget extends Composite {
     }
     
     private String parseInput(final TextBox itemBox, final BulletList list, final Boolean doLast) {
+    	itemBox.setValue(itemBox.getValue().toUpperCase());
     	isPaste = false;
-		String[] items = itemBox.getText().split("\\W");
-		for (int i = 0; i < items.length -1; ++i) {
-			deselectItemText(items[i],list);
-		}
+		String[] items = itemBox.getText().split("[^a-zA-Z_0-9\\-]");
 		if (doLast) {
-			deselectItemText(items[items.length-1], list);
+			geneNames = items;
+			getMatches(items);
 			return "";
+		} else {
+			String returnVal = items[items.length-1];
+			String[] firstItems = new String[items.length-1];
+			for (int i = 0; i < items.length-1; ++i) {
+				firstItems[i] = items[i];
+			}
+			geneNames = firstItems;
+			getMatches(firstItems);
+			return returnVal;
 		}
-		return items[items.length-1];
     }
     
     @Override
@@ -230,5 +254,7 @@ public class InputListWidget extends Composite {
             }
         }
     }
+    
+    public abstract void getMatches(String[] geneNames);
 
 }

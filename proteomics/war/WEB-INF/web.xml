@@ -21,9 +21,30 @@
 	<servlet> 
 		<servlet-name>tppProteinServiceImpl</servlet-name> 
 		<servlet-class>edu.unc.major.proteomics.server.service.impl.TppProteinServiceImpl</servlet-class> 
+		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping> 
 		<servlet-name>tppProteinServiceImpl</servlet-name> 
 		<url-pattern>/edu.unc.major.proteomics.Application/tppProteinService</url-pattern> 
+	</servlet-mapping>
+	
+	<servlet> 
+		<servlet-name>ncbiGeneServiceImpl</servlet-name> 
+		<servlet-class>edu.unc.major.proteomics.server.service.impl.NcbiGeneServiceImpl</servlet-class> 
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping> 
+		<servlet-name>ncbiGeneServiceImpl</servlet-name> 
+		<url-pattern>/edu.unc.major.proteomics.Application/ncbiGeneService</url-pattern> 
+	</servlet-mapping>
+	
+	<servlet> 
+		<servlet-name>constantServiceImpl</servlet-name> 
+		<servlet-class>edu.unc.major.proteomics.server.service.impl.ConstantServiceImpl</servlet-class> 
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping> 
+		<servlet-name>constantServiceImpl</servlet-name> 
+		<url-pattern>/edu.unc.major.proteomics.Application/constantService</url-pattern> 
 	</servlet-mapping>
 </web-app>

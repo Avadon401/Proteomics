@@ -14,7 +14,9 @@
       <entry-point class='edu.unc.major.proteomics.client.Application'/>
       <servlet path="/tppProteinIndProteinService" class="edu.unc.major.proteomics.server.service.impl.TppProteinIndProteinServiceImpl"/> 
 	  <servlet path="/tppProteinService" class="edu.unc.major.proteomics.server.service.impl.TppProteinServiceImpl"/> 
-
+	  <servlet path="/ncbiGeneService" class="edu.unc.major.proteomics.server.service.impl.NcbiGeneServiceImpl"/> 
+	  <servlet path="/constantService" class="edu.unc.major.proteomics.server.service.impl.ConstantServiceImpl"/>
+	  
       <!-- Specify the application specific style sheet.              -->
       <stylesheet src='Application.css' />
       <stylesheet src="Autocomplete.css"/>
