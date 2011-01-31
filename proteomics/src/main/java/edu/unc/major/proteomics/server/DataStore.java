@@ -42,7 +42,11 @@ public class DataStore {
 				for (NcbiGene j : i.getGenes()) {
 					geneIds.add(j.getId());
 				}				
-				geneNames.put(i.getAlias(), geneIds);
+				if (geneNames.containsKey(i.getAlias())) {
+					geneNames.get(i.getAlias()).addAll(geneIds);
+				} else {
+					geneNames.put(i.getAlias(), geneIds);
+				}
 			}
 		}
 	}
