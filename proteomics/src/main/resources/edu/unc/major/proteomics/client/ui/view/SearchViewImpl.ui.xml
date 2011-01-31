@@ -1,0 +1,26 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+                         xmlns:g="urn:import:com.google.gwt.user.client.ui"
+                         xmlns:my='urn:import:edu.unc.major.proteomics.client.ui.widget'>
+        <ui:style>
+        		.searchLabel {
+        			float: left;	
+        		}
+                .searchPanel {
+					width: 550px ;
+				 	margin-left: auto ;
+				 	margin-right: auto ;
+				}
+        </ui:style>
+        <g:HorizontalPanel styleName="{style.searchPanel}">
+       		<g:cell verticalAlignment="ALIGN_MIDDLE">
+       			<g:Label styleName="{style.searchLabel}" ui:field="searchLabel" text="Gene Symbol"/>
+       		</g:cell>
+       		<g:cell>
+       			<my:InputListWidgetSearch ui:field="searchBox"/>
+       		</g:cell>
+       		<g:cell verticalAlignment="ALIGN_MIDDLE">
+       			<g:Button ui:field="searchButton" text="Search"/>
+       		</g:cell>         
+        </g:HorizontalPanel>
+</ui:UiBinder>

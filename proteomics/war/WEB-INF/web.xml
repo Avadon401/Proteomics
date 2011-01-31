@@ -47,4 +47,14 @@
 		<servlet-name>constantServiceImpl</servlet-name> 
 		<url-pattern>/edu.unc.major.proteomics.Application/constantService</url-pattern> 
 	</servlet-mapping>
+	
+		<servlet> 
+		<servlet-name>bandServiceImpl</servlet-name> 
+		<servlet-class>edu.unc.major.proteomics.server.service.impl.BandServiceImpl</servlet-class> 
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping> 
+		<servlet-name>bandServiceImpl</servlet-name> 
+		<url-pattern>/edu.unc.major.proteomics.Application/bandService</url-pattern> 
+	</servlet-mapping>
 </web-app>

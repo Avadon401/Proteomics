@@ -1,4 +1,4 @@
-package edu.unc.major.proteomics.client.ui.widget.SuggestBoxList;
+package edu.unc.major.proteomics.client.ui.widget;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -11,7 +11,7 @@ public class ConstantServiceImpl extends ProteomicsServlet implements ConstantSe
 	public Boolean[] getMatchedSymbols(String[] geneNames) {
 		Boolean[] matches = new Boolean[geneNames.length];
 		for (int i = 0; i < geneNames.length; ++i) {
-			matches[i] = DataStore.getGeneNames().contains(geneNames[i]);
+			matches[i] = DataStore.getGeneNames().containsKey(geneNames[i]);
 		}
 		return matches;
 	}

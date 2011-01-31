@@ -21,5 +21,7 @@
         <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/TppProtein.hbm.xml"/>
         <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/NcbiGene.hbm.xml"/>
         <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/NcbiAlias.hbm.xml"/>
+        <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/Band.hbm.xml"/>
+        <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/Bait.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

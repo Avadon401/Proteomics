@@ -10,7 +10,6 @@ public class NcbiGene extends LightEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	private Integer geneID;
 	private String geneName;
 	private String description;
 	private Set<NcbiAlias> aliases = new HashSet<NcbiAlias>();
@@ -24,14 +23,6 @@ public class NcbiGene extends LightEntity implements Serializable{
 	
 	public void setId(final Long id) {
 		this.id = id;
-	}
-	
-	public Integer getGeneID() {
-		return geneID;
-	}
-	
-	public void setGeneID(final Integer geneID) {
-		this.geneID = geneID;
 	}
 	
 	public String getGeneName() {

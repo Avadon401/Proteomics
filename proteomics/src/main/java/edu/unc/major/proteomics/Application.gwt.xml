@@ -3,6 +3,7 @@
 
       <!-- Inherit the core Web Toolkit stuff.                        -->
       <inherits name='com.google.gwt.user.User'/>
+      <inherits name='com.google.gwt.activity.Activity' /> 
       
       <!-- Inherit other frameworks                       -->
       <inherits name='net.sf.gilead.Gilead4Gwt'/>
@@ -16,6 +17,7 @@
 	  <servlet path="/tppProteinService" class="edu.unc.major.proteomics.server.service.impl.TppProteinServiceImpl"/> 
 	  <servlet path="/ncbiGeneService" class="edu.unc.major.proteomics.server.service.impl.NcbiGeneServiceImpl"/> 
 	  <servlet path="/constantService" class="edu.unc.major.proteomics.server.service.impl.ConstantServiceImpl"/>
+	  <servlet path="/bandService" class="edu.unc.major.proteomics.server.service.impl.BandServiceImpl"/>
 	  
       <!-- Specify the application specific style sheet.              -->
       <stylesheet src='Application.css' />
@@ -24,4 +26,9 @@
       <!-- Specify the paths to find translatable source -->
       <source path="client"/>
       <source path="share"/>
+      
+       <!-- Use ClientFactoryImpl by default -->
+	   <replace-with class="edu.unc.major.proteomics.client.ClientFactoryImpl">
+	   	<when-type-is class="edu.unc.major.proteomics.client.ClientFactory"/>
+	   </replace-with>
 </module>

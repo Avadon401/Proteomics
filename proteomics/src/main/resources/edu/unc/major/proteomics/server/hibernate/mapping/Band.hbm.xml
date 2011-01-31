@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="edu.unc.major.proteomics.share.model.Band" table="Band" catalog="signal">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="Location"/>
+        </property>
+      		
+        <many-to-one name="bait" class="edu.unc.major.proteomics.share.model.Bait" column="BaitID"/>
+        
+		<set name="proteins" lazy="true">
+        	<key column="BandID"/>
+        	<one-to-many class="edu.unc.major.proteomics.share.model.TppProtein"/>
+        </set> 
+    </class>
+    
+ <query name="Band.byGene.byId">
+	from Band b
+	where b.bait.gene.id in (:id)
+</query> 
+</hibernate-mapping>

@@ -8,9 +8,7 @@
             <column name="ID" />
             <generator class="identity" />
         </id>
-        <property name="geneID" type="java.lang.Integer">
-            <column name="GeneID" />
-        </property>
+        <many-to-one name="gene" class="edu.unc.major.proteomics.share.model.NcbiGene" column="GeneID"/>
         <property name="proteinDec" type="string">
             <column name="ProteinDec"/>
         </property>
@@ -32,6 +30,7 @@
         <set name="identifiers" lazy="false">
         	<key column="TppProteinID"/>
         	<one-to-many class="edu.unc.major.proteomics.share.model.TppProteinIndProtein"/>
-        </set>        
+        </set>      
+        <many-to-one name="band" class="edu.unc.major.proteomics.share.model.Band" column="BandID"/>  
     </class>
 </hibernate-mapping>

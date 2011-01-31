@@ -12,7 +12,7 @@
   <properties>
 
       <!-- convenience to define GWT version in one place -->
-      <gwt.version>2.1.0.M2</gwt.version>
+      <gwt.version>2.1.0</gwt.version>
 
       <!--  tell the compiler we can use 1.5 -->
       <maven.compiler.source>1.6</maven.compiler.source>
@@ -35,7 +35,8 @@
     <enabled>false</enabled>
   </snapshots>
   <id>gwt-dev-release</id>
-  <url>http://google-web-toolkit.googlecode.com/svn/2.1.0.M2/gwt/maven/</url>
+ <!-- <url>http://google-web-toolkit.googlecode.com/svn/2.1.0.M2/gwt/maven/</url> -->
+ <url>http://google-web-toolkit.googlecode.com/svn/2.1.0/gwt/maven/</url>
 </repository>
   
   
@@ -126,6 +127,7 @@
         <configuration>
           <runTarget>edu.unc.major.proteomics.Application/Application.html</runTarget>
           <debugPort>8082</debugPort>
+          <jvmArgs>-Djava.awt.headless=true -Xmx1024</jvmArgs>
        <systemPropertyVariable>
         <property>
           <name>log4j.configuration</name>

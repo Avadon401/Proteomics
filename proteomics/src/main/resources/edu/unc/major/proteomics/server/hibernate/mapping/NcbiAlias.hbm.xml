@@ -11,8 +11,8 @@
         <property name="alias" type="string">
             <column name="alias"/>
         </property>
-        <set name="genes" table="ncbi_protein_aliases"> 
-        	<key column="ncbi_protein_id"/> 
+        <set name="genes" table="ncbi_protein_aliases" > 
+        	<key column="ncbi_gene_id"/> 
         	<many-to-many column="ncbi_alias_id" class="edu.unc.major.proteomics.share.model.NcbiGene"/> 
         </set> 
     </class>

@@ -1,4 +1,4 @@
-package edu.unc.major.proteomics.client.ui.widget.SuggestBoxList;
+package edu.unc.major.proteomics.client.ui.widget;
 
 import com.google.gwt.dom.client.Document;
 import com.google.gwt.dom.client.InputElement;

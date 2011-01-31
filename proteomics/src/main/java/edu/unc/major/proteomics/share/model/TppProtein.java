@@ -11,7 +11,7 @@ public class TppProtein extends LightEntity implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private Long id;
-	private Integer geneID;
+	private NcbiGene gene;
 	private String proteinDec;
 	private Float probability;
 	private Integer totalNumPeptides;
@@ -19,6 +19,7 @@ public class TppProtein extends LightEntity implements Serializable{
 	private Float xpressRatioMean;
 	private Float xpressRatioStdDev;
 	private Set<TppProteinIndProtein> identifiers = new HashSet<TppProteinIndProtein>();
+	private Band band;
 	
 	public TppProtein() {}
 	
@@ -30,12 +31,12 @@ public class TppProtein extends LightEntity implements Serializable{
 		this.id = id;
 	}
 	
-	public Integer getGeneID() {
-		return geneID;
+	public NcbiGene getGene() {
+		return gene;
 	}
 	
-	public void setGeneID(final Integer geneID) {
-		this.geneID = geneID;
+	public void setGene(final NcbiGene gene) {
+		this.gene = gene;
 	}
 	
 	public String getProteinDec() {
@@ -94,5 +95,12 @@ public class TppProtein extends LightEntity implements Serializable{
 		this.identifiers = identifiers;
 	}
 	
+	public Band getBand() {
+		return band;
+	}
+	
+	public void setBand(final Band band) {
+		this.band = band;
+	}
 	
 }

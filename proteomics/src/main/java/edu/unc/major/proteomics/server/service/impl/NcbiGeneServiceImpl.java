@@ -11,7 +11,7 @@ public class NcbiGeneServiceImpl extends ProteomicsServlet implements NcbiGeneSe
 	private static final long serialVersionUID = 1L;
 
 	public Set<String> getGeneSymbols() {
-		return DataStore.getGeneNames();
+		return DataStore.getGeneNames().keySet();
 	}
 	
 }
