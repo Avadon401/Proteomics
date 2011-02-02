@@ -35,8 +35,9 @@ public class DataStore {
 				geneIds.add(i.getId());
 				geneNames.put(i.getGeneName(), geneIds);
 			}
-			q = session.createQuery("from NcbiAlias a inner join a.genes");
+			q = session.createQuery("from NcbiAlias a left join fetch a.genes");
 			List<NcbiAlias> aliases = new ArrayList<NcbiAlias>(q.list());
+
 			for (NcbiAlias i : aliases) {
 				Set<Long> geneIds = new HashSet<Long>();
 				for (NcbiGene j : i.getGenes()) {

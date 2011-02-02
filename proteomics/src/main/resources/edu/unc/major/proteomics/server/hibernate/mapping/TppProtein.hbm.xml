@@ -33,4 +33,20 @@
         </set>      
         <many-to-one name="band" class="edu.unc.major.proteomics.share.model.Band" column="BandID"/>  
     </class>
+    
+<query name="TppProtein.byGene.byId">
+	from TppProtein p
+	inner join fetch p.gene
+	inner join fetch p.band
+	inner join fetch p.band.bait
+	inner join fetch p.band.bait.gene
+	where p.gene.id in (:id) and p.gene.id != p.band.bait.gene.id and p.totalNumPeptides > 0
+	order by p.gene.geneName, p.totalNumPeptides desc
+</query> 
+
+ <query name="TppProtein.byGene.byId,size">
+ 	select count(*)
+	from TppProtein p
+	where p.gene.id in (:id) and p.gene.id != p.band.bait.gene.id and p.totalNumPeptides > 0
+</query> 
 </hibernate-mapping>

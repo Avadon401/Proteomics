@@ -27,6 +27,8 @@ import edu.unc.major.proteomics.share.service.ConstantService;
 import edu.unc.major.proteomics.share.service.ConstantServiceAsync;
 import edu.unc.major.proteomics.share.service.NcbiGeneService;
 import edu.unc.major.proteomics.share.service.NcbiGeneServiceAsync;
+import edu.unc.major.proteomics.share.service.SiRNAValService;
+import edu.unc.major.proteomics.share.service.SiRNAValServiceAsync;
 import edu.unc.major.proteomics.share.service.TppProteinIndProteinService;
 import edu.unc.major.proteomics.share.service.TppProteinIndProteinServiceAsync;
 import edu.unc.major.proteomics.share.service.TppProteinService;
@@ -46,6 +48,7 @@ public class Application implements EntryPoint
 	public static final NcbiGeneServiceAsync ncbiGeneService = (NcbiGeneServiceAsync) GWT.create(NcbiGeneService.class);
 	public static final ConstantServiceAsync constantService = (ConstantServiceAsync) GWT.create(ConstantService.class);
 	public static final BandServiceAsync bandService = (BandServiceAsync) GWT.create(BandService.class);
+	public static final SiRNAValServiceAsync siRNAValService = (SiRNAValServiceAsync) GWT.create(SiRNAValService.class);
 	
 	static {
 		bindService(proteinIndService, "tppProteinIndProteinService");
@@ -53,6 +56,7 @@ public class Application implements EntryPoint
 		bindService(ncbiGeneService, "ncbiGeneService");
 		bindService(constantService, "constantService");
 		bindService(bandService, "bandService");
+		bindService(siRNAValService, "siRNAValService");
 	}
 	
 	private static void bindService(final Object svc, final String name) {
@@ -94,7 +98,7 @@ public class Application implements EntryPoint
 
 			@Override
 			public void onSuccess(Set<Band> result) {
-				Window.alert("holy shit " + String.valueOf(result.size()));
+				//Window.alert("holy shit " + String.valueOf(result.size()));
 			}
 			
 		});

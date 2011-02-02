@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="edu.unc.major.proteomics.share.model.SiRNAExperiment" table="siRNA_experiments" catalog="signal">
+        <id name="id" type="java.lang.Long">
+            <column name="siRNA_experiment_id" />
+            <generator class="identity" />
+        </id>
+        <property name="fileName" type="string">
+            <column name="file_name"/>
+        </property>
+        
+        <many-to-one name="pathway" class="edu.unc.major.proteomics.share.model.Pathway" column="pathway_id"/> 
+    </class>
+</hibernate-mapping>

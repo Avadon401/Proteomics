@@ -48,7 +48,7 @@
 		<url-pattern>/edu.unc.major.proteomics.Application/constantService</url-pattern> 
 	</servlet-mapping>
 	
-		<servlet> 
+	<servlet> 
 		<servlet-name>bandServiceImpl</servlet-name> 
 		<servlet-class>edu.unc.major.proteomics.server.service.impl.BandServiceImpl</servlet-class> 
 		<load-on-startup>1</load-on-startup>
@@ -56,5 +56,15 @@
 	<servlet-mapping> 
 		<servlet-name>bandServiceImpl</servlet-name> 
 		<url-pattern>/edu.unc.major.proteomics.Application/bandService</url-pattern> 
+	</servlet-mapping>
+	
+	<servlet> 
+		<servlet-name>siRNAValServiceImpl</servlet-name> 
+		<servlet-class>edu.unc.major.proteomics.server.service.impl.SiRNAValServiceImpl</servlet-class> 
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping> 
+		<servlet-name>siRNAValServiceImpl</servlet-name> 
+		<url-pattern>/edu.unc.major.proteomics.Application/siRNAValService</url-pattern> 
 	</servlet-mapping>
 </web-app>

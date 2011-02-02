@@ -1,7 +1,8 @@
 <!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
 <ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
                          xmlns:g="urn:import:com.google.gwt.user.client.ui"
-                         xmlns:my='urn:import:edu.unc.major.proteomics.client.ui.widget'>
+                         xmlns:my='urn:import:edu.unc.major.proteomics.client.ui.widget'
+                         xmlns:tb='urn:import:edu.unc.major.proteomics.client.ui.widget.table'>
         <ui:style>
         		.searchLabel {
         			float: left;	
@@ -11,16 +12,39 @@
 				 	margin-left: auto ;
 				 	margin-right: auto ;
 				}
+				.bandPanel {
+					width: 300px;
+					border: 1px solid #CCCCCC;
+				}
+				.bandPanel td {
+					font-size: 11px !important;
+				}
         </ui:style>
-        <g:HorizontalPanel styleName="{style.searchPanel}">
-       		<g:cell verticalAlignment="ALIGN_MIDDLE">
-       			<g:Label styleName="{style.searchLabel}" ui:field="searchLabel" text="Gene Symbol"/>
-       		</g:cell>
-       		<g:cell>
-       			<my:InputListWidgetSearch ui:field="searchBox"/>
-       		</g:cell>
-       		<g:cell verticalAlignment="ALIGN_MIDDLE">
-       			<g:Button ui:field="searchButton" text="Search"/>
-       		</g:cell>         
-        </g:HorizontalPanel>
+        <g:FlowPanel>
+	        <g:HorizontalPanel styleName="{style.searchPanel}">
+	       		<g:cell verticalAlignment="ALIGN_MIDDLE">
+	       			<g:Label styleName="{style.searchLabel}" ui:field="searchLabel" text="Gene Symbol"/>
+	       		</g:cell>
+	       		<g:cell>
+	       			<my:InputListWidgetSearch ui:field="searchBox"/>
+	       		</g:cell>
+	       		<g:cell verticalAlignment="ALIGN_MIDDLE">
+	       			<g:Button ui:field="searchButton" text="Search"/>
+	       		</g:cell>         
+	        </g:HorizontalPanel>
+	        <g:HorizontalPanel>
+	        	<g:cell>
+			        <tb:BandCellTable styleName="{style.bandPanel}" ui:field="bandCellTable">
+			        </tb:BandCellTable>
+		        </g:cell>
+		        <g:cell>
+			        <tb:PreyCellTable styleName="{style.bandPanel}" ui:field="preyCellTable">
+			        </tb:PreyCellTable>
+		        </g:cell>
+		        <g:cell>
+			        <tb:SiRNAValCellTable styleName="{style.bandPanel}" ui:field="siRNAValCellTable">
+			        </tb:SiRNAValCellTable>
+		        </g:cell>
+	        </g:HorizontalPanel>
+        </g:FlowPanel>
 </ui:UiBinder>

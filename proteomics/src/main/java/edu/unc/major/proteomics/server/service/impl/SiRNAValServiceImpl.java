@@ -11,25 +11,14 @@ import org.hibernate.Session;
 import edu.unc.major.proteomics.server.DataStore;
 import edu.unc.major.proteomics.server.ProteomicsServlet;
 import edu.unc.major.proteomics.share.dao.PageResults;
-import edu.unc.major.proteomics.share.model.Band;
-import edu.unc.major.proteomics.share.model.TppProtein;
-import edu.unc.major.proteomics.share.service.TppProteinService;
+import edu.unc.major.proteomics.share.model.SiRNAVal;
+import edu.unc.major.proteomics.share.service.SiRNAValService;
 
-public class TppProteinServiceImpl extends ProteomicsServlet implements TppProteinService{
+public class SiRNAValServiceImpl extends ProteomicsServlet implements SiRNAValService{
 
 	private static final long serialVersionUID = 1L;
 
-	public List<TppProtein> getProteins() {
-		Session session = gileadHibernateUtil.getSessionFactory().getCurrentSession();
-		session.beginTransaction();
-		Query q = session.createQuery("from TppProtein");
-		q.setMaxResults(5);
-		List<TppProtein> proteins = new ArrayList<TppProtein>(q.list());
-		session.getTransaction().commit();
-		return proteins;
-	}
-	
-	public PageResults<TppProtein> getByGeneSymbolsPage(Set<String> geneSymbols, final int start, final int length) {
+	public PageResults<SiRNAVal> getByGeneSymbolsPage(Set<String> geneSymbols, int start, int length) {
 		if (geneSymbols == null || geneSymbols.size() == 0) return null;
 		Set<Long> geneIds = new HashSet<Long>(geneSymbols.size());
 		for (String geneSymbol : geneSymbols) {
@@ -39,18 +28,19 @@ public class TppProteinServiceImpl extends ProteomicsServlet implements TppProte
 		Session session = gileadHibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		
-		Query q = session.getNamedQuery("TppProtein.byGene.byId");
+		Query q = session.getNamedQuery("SiRNAVal.byGene.byId");
 		q.setParameterList("id", geneIds);
 		q.setFirstResult(start);
 		q.setMaxResults(length);
-		List<TppProtein> genes = new ArrayList<TppProtein>(q.list());
+		List<SiRNAVal> siRNA = new ArrayList<SiRNAVal>(q.list());
 		
-		q = session.getNamedQuery("TppProtein.byGene.byId,size");
+		q = session.getNamedQuery("SiRNAVal.byGene.byId,size");
 		q.setParameterList("id", geneIds);
 		int size = ((Long) q.uniqueResult()).intValue();
 		
-		PageResults<TppProtein> results = new PageResults<TppProtein>(genes,size);
+		PageResults<SiRNAVal> results = new PageResults<SiRNAVal>(siRNA,size);
 		
 		return results;
 	}
+	
 }

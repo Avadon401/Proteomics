@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="edu.unc.major.proteomics.share.model.SiRNAVal" table="siRNA_vals" catalog="signal">
+        <id name="id" type="java.lang.Long">
+            <column name="siRNA_val_id" />
+            <generator class="identity" />
+        </id> 
+        
+        <property name="treatment" type="string">
+            <column name="treatment"/>
+        </property>      
+        
+        <property name="amount" type="java.lang.Double">
+            <column name="amount"/>
+        </property>
+        
+        <property name="repOverViaMean" type="java.lang.Double">
+            <column name="rep_over_via_mean"/>
+        </property>     
+        <property name="repOverViaMedian" type="java.lang.Double">
+            <column name="rep_over_via_median"/>
+        </property>
+        <property name="repOverViaStd" type="java.lang.Double">
+            <column name="rep_over_via_std"/>
+        </property>
+        <property name="repOverViaZ" type="java.lang.Double">
+            <column name="rep_over_via_z"/>
+        </property>
+        <property name="repOverViaP" type="java.lang.Double">
+            <column name="rep_over_via_p"/>
+        </property>
+        <property name="repOverViaNegLogP" type="java.lang.Double">
+            <column name="rep_over_via_negLogP"/>
+        </property>
+        <property name="viaMean" type="java.lang.Double">
+            <column name="via_mean"/>
+        </property>
+        <property name="viaMedian" type="java.lang.Double">
+            <column name="via_median"/>
+        </property>
+        <property name="viaStd" type="java.lang.Double">
+            <column name="via_std"/>
+        </property>
+        <property name="viaZ" type="java.lang.Double">
+            <column name="via_z"/>
+        </property>
+        <property name="viaP" type="java.lang.Double">
+            <column name="via_p"/>
+        </property>
+        <property name="viaNegLogP" type="java.lang.Double">
+            <column name="via_negLogP"/>
+        </property>
+         
+        <many-to-one name="data" class="edu.unc.major.proteomics.share.model.SiRNAData" column="siRNA_data_id"/> 
+    </class>
+    
+<query name="SiRNAVal.byGene.byId">
+	from SiRNAVal v
+	left join fetch v.data
+	left join fetch v.data.gene
+	left join fetch v.data.alias
+	left join fetch v.data.alias.genes
+	left join fetch v.data.type
+	left join fetch v.data.cellLine
+	left join fetch v.data.experiment
+	left join fetch v.data.experiment.pathway
+	where v.data.gene.id in (:id)  or exists(from NcbiGene g where g.id in (:id) and g in elements(v.data.alias.genes))
+	order by v.repOverViaMean, v.repOverViaMedian, v.repOverViaStd desc
+</query> 
+
+ <query name="SiRNAVal.byGene.byId,size">
+ 	select count(*)
+	from SiRNAVal v
+	where v.data.gene.id in (:id) or exists(from NcbiGene g where g.id in (:id) and g in elements(v.data.alias.genes))
+</query> 
+</hibernate-mapping>

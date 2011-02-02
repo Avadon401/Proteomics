@@ -1,6 +1,7 @@
 package edu.unc.major.proteomics.share.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 import net.sf.gilead.pojo.gwt.LightEntity;
@@ -10,7 +11,7 @@ public class NcbiAlias extends LightEntity implements Serializable{
 	
 	private Long id;
 	private String alias;
-	private Set<NcbiGene> genes;
+	private Set<NcbiGene> genes = new HashSet<NcbiGene>();
 	
 	public NcbiAlias () {}
 	

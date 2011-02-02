@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="edu.unc.major.proteomics.share.model.SiRNAData" table="siRNA_data" catalog="signal">
+        <id name="id" type="java.lang.Long">
+            <column name="siRNA_data_id" />
+            <generator class="identity" />
+        </id>       
+        
+        <property name="num" type="java.lang.Integer">
+            <column name="num"/>
+        </property>
+         
+        <many-to-one name="type" class="edu.unc.major.proteomics.share.model.SiRNAType" column="siRNA_type_id"/>
+        <many-to-one name="gene" class="edu.unc.major.proteomics.share.model.NcbiGene" column="ncbi_gene_id"/> 
+        <many-to-one name="alias" class="edu.unc.major.proteomics.share.model.NcbiAlias" column="ncbi_alias_id"/> 
+        <many-to-one name="cellLine" class="edu.unc.major.proteomics.share.model.CellLine" column="cell_line_id"/> 
+        <many-to-one name="experiment" class="edu.unc.major.proteomics.share.model.SiRNAExperiment" column="siRNA_experiment_id"/> 
+        
+        <set name="vals" lazy="true">
+        	<key column="siRNA_data_id"/>
+        	<one-to-many class="edu.unc.major.proteomics.share.model.SiRNAVal"/>
+        </set> 
+        
+    </class>
+</hibernate-mapping>

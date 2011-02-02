@@ -1,9 +1,11 @@
 package edu.unc.major.proteomics.client.ui.widget;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
@@ -25,8 +27,6 @@ import com.google.gwt.user.client.ui.SimplePanel;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.SuggestOracle;
 import com.google.gwt.user.client.ui.TextBox;
-
-import edu.unc.major.proteomics.client.Application;
 
 /**
  * Facebook Style Autocompleter.
@@ -256,5 +256,17 @@ public abstract class InputListWidget extends Composite {
     }
     
     public abstract void getMatches(String[] geneNames);
+    
+    public String[] getGeneNames() {
+    	return geneNames;
+    }
+    
+    public Set<String> getGeneNamesList() {
+    	return new HashSet<String>(Arrays.asList(geneNames));
+    }
+    
+    public Set<String> getItemsSelected() {
+    	return new HashSet<String>(itemsSelected);
+    }
 
 }

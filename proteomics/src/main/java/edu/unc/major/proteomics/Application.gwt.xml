@@ -18,6 +18,8 @@
 	  <servlet path="/ncbiGeneService" class="edu.unc.major.proteomics.server.service.impl.NcbiGeneServiceImpl"/> 
 	  <servlet path="/constantService" class="edu.unc.major.proteomics.server.service.impl.ConstantServiceImpl"/>
 	  <servlet path="/bandService" class="edu.unc.major.proteomics.server.service.impl.BandServiceImpl"/>
+	  <servlet path="/siRNAValService" class="edu.unc.major.proteomics.server.service.impl.SiRNAValServiceImpl"/>
+	  
 	  
       <!-- Specify the application specific style sheet.              -->
       <stylesheet src='Application.css' />

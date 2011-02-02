@@ -14,7 +14,7 @@
         <property name="description" type="string">
             <column name="description"/>
         </property>
-        <set name="aliases" table="ncbi_protein_aliases"> 
+        <set name="aliases" table="ncbi_protein_aliases" catalog="signal"> 
         	<key column="ncbi_alias_id"/> 
         	<many-to-many column="ncbi_gene_id" class="edu.unc.major.proteomics.share.model.NcbiAlias"/> 
         </set> 

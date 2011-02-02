@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.google.gwt.view.client.ProvidesKey;
+
 import net.sf.gilead.pojo.gwt.LightEntity;
 
-public class Band extends LightEntity implements Serializable{
+public class Band extends LightEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -14,6 +16,7 @@ public class Band extends LightEntity implements Serializable{
 	private Bait bait;
 	private String name;
 	private Set<TppProtein> proteins = new HashSet<TppProtein>();
+	private Integer proteinCount;
 	
 	public Band() {}
 	
@@ -50,5 +53,12 @@ public class Band extends LightEntity implements Serializable{
 		this.proteins = proteins;
 	}
 	
+	public Integer getProteinCount() {
+		return proteinCount;
+	}
+	
+	public void setProteinCount(final Integer proteinCount) {
+		this.proteinCount = proteinCount;
+	}
 	
 }
