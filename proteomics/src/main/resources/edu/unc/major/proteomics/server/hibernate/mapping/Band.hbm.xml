@@ -28,7 +28,7 @@
 	inner join fetch b.bait
 	inner join fetch b.bait.gene
 	where b.bait.gene.id in (:id)
-	order by b.bait.gene.geneName, b.proteinCount desc
+	order by b.proteinCount desc
 </query> 
 
  <query name="Band.byGene.byId,size">

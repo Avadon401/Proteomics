@@ -1,5 +1,7 @@
 package edu.unc.major.proteomics.client.ui.widget.table;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import com.google.gwt.cell.client.CheckboxCell;
@@ -19,6 +21,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
 import com.google.gwt.view.client.MultiSelectionModel;
+import com.google.gwt.view.client.SelectionChangeEvent.Handler;
 import com.google.gwt.view.client.SelectionModel;
 
 import edu.unc.major.proteomics.client.Application;
@@ -26,10 +29,10 @@ import edu.unc.major.proteomics.share.dao.PageResults;
 import edu.unc.major.proteomics.share.model.Band;
 
 public class BandCellTable extends Composite {
-
 	CellTable<Band> cellTable;
 	private SimplePager pager;
 	private Set<String> geneSymbols;
+	final MultiSelectionModel<Band> selectionModel;
 	
 	public BandCellTable() {
 		VerticalPanel panel = new VerticalPanel();
@@ -47,7 +50,7 @@ public class BandCellTable extends Composite {
 	    pager.setPageSize(10);
 
 	    // Add a selection model so we can select cells.
-	    final MultiSelectionModel<Band> selectionModel = new MultiSelectionModel<Band>(KeyProvider.BandKeyProvider);
+	    selectionModel = new MultiSelectionModel<Band>(KeyProvider.BandKeyProvider);
 	    cellTable.setSelectionModel(selectionModel);
 	    
 	    // Initialize the columns.
@@ -152,12 +155,28 @@ public class BandCellTable extends Composite {
 	
 	public void update(final Set<String> geneSymbols) {
 		setGeneSymbols(geneSymbols);
-		//pager.setPage(0);
+		pager.setPage(0);
 		updateTable(0,pager.getPageSize());
 	}
 	
 	public AsyncDataProvider<Band> getProvider() {
 		return provider;
+	}
+	
+	public void addSelectionChangeHandler(final Handler handler) {
+		selectionModel.addSelectionChangeHandler(handler);
+	}
+	
+	public MultiSelectionModel<Band> getSelectionModel() {
+		return selectionModel;
+	}
+	
+	public List<Long> getSelectedKeys() {
+		List<Long> keys = new ArrayList<Long>();
+		for (Band b : selectionModel.getSelectedSet()) {
+			keys.add((Long)KeyProvider.BandKeyProvider.getKey(b));
+		}
+		return keys;
 	}
 
 }

@@ -40,6 +40,13 @@ public class Band extends LightEntity implements Serializable {
 		return name;
 	}
 	
+	public String getNiceName() {
+		if (name.contains("---")) {
+			return name.substring(name.indexOf("---")+3);
+		}
+		return name;
+	}
+	
 	public void setName(final String name) {
 		this.name = name;
 	}

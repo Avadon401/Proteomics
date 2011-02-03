@@ -13,4 +13,6 @@ public interface TppProteinServiceAsync {
 	public void getProteins(AsyncCallback<List<TppProtein>> callback);
 	
 	public void getByGeneSymbolsPage(Set<String> geneSymbols, int start, int length, AsyncCallback<PageResults<TppProtein>> callback);
+	
+	public void getListByBandId(List<Long> bandIds, final int start, final int length, AsyncCallback<PageResults<List<TppProtein>>> callback);
 }

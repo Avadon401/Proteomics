@@ -11,12 +11,27 @@
 					width: 550px ;
 				 	margin-left: auto ;
 				 	margin-right: auto ;
+				 	margin-bottom: 20px ;
 				}
 				.bandPanel {
-					width: 300px;
 					border: 1px solid #CCCCCC;
 				}
 				.bandPanel td {
+					font-size: 11px !important;
+				}
+				.compPanel {
+					margin: 10px auto;	
+					border: 1px solid #CCCCCC;
+				}
+				.criteria-dropshadow {
+				        background: #ededed url(/edu.unc.major.proteomics.Application/images/search-criteria-shadow.png) repeat-x left bottom;
+				        height: 6px;
+				}
+				.resultsPanel {
+					width: 100%;	
+					margin: 0 auto;
+				}
+				.compPanel td {
 					font-size: 11px !important;
 				}
         </ui:style>
@@ -32,19 +47,25 @@
 	       			<g:Button ui:field="searchButton" text="Search"/>
 	       		</g:cell>         
 	        </g:HorizontalPanel>
-	        <g:HorizontalPanel>
-	        	<g:cell>
-			        <tb:BandCellTable styleName="{style.bandPanel}" ui:field="bandCellTable">
-			        </tb:BandCellTable>
-		        </g:cell>
-		        <g:cell>
-			        <tb:PreyCellTable styleName="{style.bandPanel}" ui:field="preyCellTable">
-			        </tb:PreyCellTable>
-		        </g:cell>
-		        <g:cell>
-			        <tb:SiRNAValCellTable styleName="{style.bandPanel}" ui:field="siRNAValCellTable">
-			        </tb:SiRNAValCellTable>
-		        </g:cell>
-	        </g:HorizontalPanel>
+	        <g:DisclosurePanel ui:field="disclosurePanel">
+		        <g:HorizontalPanel styleName="{style.resultsPanel}">
+		        	<g:cell>
+				        <tb:BandCellTable styleName="{style.bandPanel}" ui:field="bandCellTable">
+				        </tb:BandCellTable>
+			        </g:cell>
+			        <g:cell>
+				        <tb:PreyCellTable styleName="{style.bandPanel}" ui:field="preyCellTable">
+				        </tb:PreyCellTable>
+			        </g:cell>
+			        <g:cell>
+				        <tb:SiRNAValCellTable styleName="{style.bandPanel}" ui:field="siRNAValCellTable">
+				        </tb:SiRNAValCellTable>
+			        </g:cell>
+		        </g:HorizontalPanel>
+	        </g:DisclosurePanel>
+	        <g:FlowPanel styleName="{style.criteria-dropshadow}" ui:field="dropShadow">
+	        </g:FlowPanel>
+         	<tb:TppProteinCellTable styleName="{style.compPanel}" ui:field="compTable">
+		    </tb:TppProteinCellTable>
         </g:FlowPanel>
 </ui:UiBinder>

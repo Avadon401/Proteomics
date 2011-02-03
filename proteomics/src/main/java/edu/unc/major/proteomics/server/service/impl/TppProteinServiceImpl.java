@@ -53,4 +53,52 @@ public class TppProteinServiceImpl extends ProteomicsServlet implements TppProte
 		
 		return results;
 	}
+	
+	public PageResults<List<TppProtein>> getListByBandId(List<Long> bandIds, final int start, final int length) {
+		if (bandIds == null || bandIds.size() == 0) return null;
+
+		Session session = gileadHibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		
+		List<List<TppProtein>> ori = new ArrayList<List<TppProtein>>();
+		List<List<TppProtein>> sorted = new ArrayList<List<TppProtein>>();
+		
+		for (Long id : bandIds) {
+			Query q = session.getNamedQuery("TppProtein.byBand.byId");
+			q.setParameter("id", id);	
+			ori.add(q.list());
+		}
+		
+		Set<Long> geneIds = new HashSet<Long>();
+
+		for (int i = 0; i < ori.size(); i++) {
+			for (int j = 0; j < ori.get(i).size(); j++) {
+				TppProtein first = ori.get(i).get(j);
+				if (!geneIds.contains(first.getGene().getId())) {
+					geneIds.add(first.getGene().getId());		
+					List<TppProtein> row = new ArrayList<TppProtein>();
+					row.add(first);
+					for (int k = i+1; k < ori.size(); k++) {
+						for (TppProtein p : ori.get(k)) {
+							if (p.getGene().getId() == first.getGene().getId()) {
+								row.add(p);
+								break;
+							}
+						}
+					}
+					sorted.add(row);
+				}
+			}
+		}
+		
+		List<List<TppProtein>> output = new ArrayList<List<TppProtein>>();
+		for (int i = start; i < Math.min(start+length,sorted.size()); i++) {
+			output.add(sorted.get(i));
+		}
+		System.out.println(output.size());
+		PageResults<List<TppProtein>> results = new PageResults<List<TppProtein>>(output,sorted.size());
+		
+		return results;
+		//return new PageResults<List<TppProtein>>(new ArrayList<List<TppProtein>>(),sorted.size());
+	}
 }

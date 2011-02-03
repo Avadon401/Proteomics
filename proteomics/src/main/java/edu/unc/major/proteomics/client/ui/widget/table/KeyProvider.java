@@ -1,5 +1,7 @@
 package edu.unc.major.proteomics.client.ui.widget.table;
 
+import java.util.List;
+
 import com.google.gwt.view.client.ProvidesKey;
 
 import edu.unc.major.proteomics.share.model.Band;
@@ -26,6 +28,13 @@ public class KeyProvider {
 		@Override
 		public Object getKey(SiRNAVal item) {
 			return (item == null) ? null : item.getId();
+		}
+	};
+	
+	public static ProvidesKey<List<TppProtein>> TppProteinListKeyProvider = new ProvidesKey<List<TppProtein>>() {
+		@Override
+		public Object getKey(List<TppProtein> item) {
+			return (item == null) ? null : item.get(0).getGene().getId();
 		}
 	};
 

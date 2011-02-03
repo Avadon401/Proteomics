@@ -27,7 +27,7 @@
         <property name="xpressRatioStdDev" type="java.lang.Float">
             <column name="XPRESSRATIO_STANDARD_DEV" />
         </property>
-        <set name="identifiers" lazy="false">
+        <set name="identifiers" lazy="true">
         	<key column="TppProteinID"/>
         	<one-to-many class="edu.unc.major.proteomics.share.model.TppProteinIndProtein"/>
         </set>      
@@ -41,12 +41,20 @@
 	inner join fetch p.band.bait
 	inner join fetch p.band.bait.gene
 	where p.gene.id in (:id) and p.gene.id != p.band.bait.gene.id and p.totalNumPeptides > 0
-	order by p.gene.geneName, p.totalNumPeptides desc
+	order by p.totalNumPeptides desc
 </query> 
 
  <query name="TppProtein.byGene.byId,size">
  	select count(*)
 	from TppProtein p
 	where p.gene.id in (:id) and p.gene.id != p.band.bait.gene.id and p.totalNumPeptides > 0
+</query> 
+
+<query name="TppProtein.byBand.byId">
+	from TppProtein p
+	inner join fetch p.gene
+	inner join fetch p.band
+	where p.band.id = :id and p.totalNumPeptides > 0
+	order by p.totalNumPeptides desc
 </query> 
 </hibernate-mapping>

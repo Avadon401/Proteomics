@@ -107,7 +107,7 @@ public class PreyCellTable extends Composite {
 	    	  return String.valueOf(object.getUniqueNumPeptides());
 	      }
 	    };
-	    cellTable.addColumn(uniCountColumn, "UPeps");
+	    cellTable.addColumn(uniCountColumn, "U");
 	    
 	    // # tot peptides
 	    Column<TppProtein, String> totCountColumn = new Column<TppProtein, String>(new TextCell()) {
@@ -115,7 +115,7 @@ public class PreyCellTable extends Composite {
 	    	  return String.valueOf(object.getTotalNumPeptides());
 	      }
 	    };
-	    cellTable.addColumn(totCountColumn, "TPeps");
+	    cellTable.addColumn(totCountColumn, "T");
 	    
 	    // ms run name
 	    Column<TppProtein, String> nameColumn = new Column<TppProtein, String>(new TextCell()) {
@@ -161,7 +161,7 @@ public class PreyCellTable extends Composite {
 	
 	public void update(final Set<String> geneSymbols) {
 		setGeneSymbols(geneSymbols);
-		//pager.setPage(0);
+		pager.setPage(0);
 		updateTable(0,pager.getPageSize());
 	}
 	

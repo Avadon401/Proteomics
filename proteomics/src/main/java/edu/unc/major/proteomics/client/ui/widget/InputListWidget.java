@@ -48,7 +48,7 @@ public abstract class InputListWidget extends Composite {
 			for (String name : geneNames)
 				GWT.log(name);
 			for (int i = 0; i < result.length; ++i) {
-				deselectItemText(geneNames[i], result[i], list);
+				deselectItemText(geneNames[i], result[i]);
 			}		
             geneNames = null;
 		}
@@ -96,7 +96,7 @@ public abstract class InputListWidget extends Composite {
         itemBox.addKeyPressHandler(new KeyPressHandler() {
         	public void onKeyPress(KeyPressEvent event) {
 				if (event.getCharCode() == ' ') {
-					deselectItem(itemBox, list, true);
+					deselectItem(true);
 				}
 			}        	
         });
@@ -104,9 +104,9 @@ public abstract class InputListWidget extends Composite {
         itemBox.addKeyUpHandler(new KeyUpHandler() {
         	public void onKeyUp(KeyUpEvent event) {
         		if (isKeyboard) {
-        			deselectItem(itemBox, list, false);    			
+        			deselectItem(false);    			
         		} else {
-        			deselectItem(itemBox, list, false);
+        			deselectItem(false);
         		}
         		isKeyboard = true;
 			}        	
@@ -117,10 +117,10 @@ public abstract class InputListWidget extends Composite {
             public void onKeyDown(KeyDownEvent event) {
             	if (isPaste) {
             		isKeyboard = false;
-            		deselectItem(itemBox, list, true);
+            		deselectItem(true);
             	} 
                 if (event.getNativeKeyCode() == KeyCodes.KEY_ENTER ) {
-                    deselectItem(itemBox, list, true);
+                    deselectItem(true);
                 }
                 // handle backspace
                 if (event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE) {
@@ -141,7 +141,7 @@ public abstract class InputListWidget extends Composite {
 
         box.addSelectionHandler(new SelectionHandler<SuggestOracle.Suggestion>() {
             public void onSelection(SelectionEvent selectionEvent) {
-                deselectItem(itemBox, list, true);
+                deselectItem(true);
             }
         });
 
@@ -166,7 +166,7 @@ public abstract class InputListWidget extends Composite {
          */
     }
     
-    private void deselectItemText(final String item, final Boolean match, final BulletList list) {
+    private void deselectItemText(final String item, final Boolean match) {
     	if (item != null && !"".equals(item)) {
     		final ListItem displayItem = new ListItem();
             if (match) {
@@ -181,7 +181,7 @@ public abstract class InputListWidget extends Composite {
             Span span = new Span("x");
             span.addClickHandler(new ClickHandler() {
                 public void onClick(ClickEvent clickEvent) {
-                    removeListItem(displayItem, list);
+                    removeListItem(displayItem);
                 }
             });
 
@@ -197,14 +197,14 @@ public abstract class InputListWidget extends Composite {
     	}
     }
 
-    private void deselectItem(final TextBox itemBox, final BulletList list, final Boolean doLast) {
+    public void deselectItem(final Boolean doLast) {
         if (itemBox.getValue() != null && !"".equals(itemBox.getValue().trim())) {       	
         	output = "";
         	System.out.print(isPaste);
             if (isPaste) {
-            	output = parseInput(itemBox, list, true);
+            	output = parseInput(true);
             } else if (doLast){
-            	output = parseInput(itemBox, list, true);
+            	output = parseInput(true);
             	//itemBox.setValue(itemBox.getValue().toUpperCase());
             	//getMatches(new String[] {itemBox.getValue()});
             } else {
@@ -215,13 +215,13 @@ public abstract class InputListWidget extends Composite {
         }
     }
 
-    private void removeListItem(ListItem displayItem, BulletList list) {
+    private void removeListItem(ListItem displayItem) {
         GWT.log("Removing: " + displayItem.getWidget(0).getElement().getInnerHTML(), null);
         itemsSelected.remove(displayItem.getWidget(0).getElement().getInnerHTML());
         list.remove(displayItem);
     }
     
-    private String parseInput(final TextBox itemBox, final BulletList list, final Boolean doLast) {
+    private String parseInput(final Boolean doLast) {
     	itemBox.setValue(itemBox.getValue().toUpperCase());
     	isPaste = false;
 		String[] items = itemBox.getText().split("[^a-zA-Z_0-9\\-]");

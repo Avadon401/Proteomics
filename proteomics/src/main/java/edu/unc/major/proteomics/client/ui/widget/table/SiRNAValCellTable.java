@@ -171,7 +171,7 @@ public class SiRNAValCellTable extends Composite {
 
 	public void update(final Set<String> geneSymbols) {
 		setGeneSymbols(geneSymbols);
-		//pager.setPage(0);
+		pager.setPage(0);
 		updateTable(0,pager.getPageSize());
 	}
 
