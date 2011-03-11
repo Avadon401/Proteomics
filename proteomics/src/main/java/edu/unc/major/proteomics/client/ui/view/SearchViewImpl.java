@@ -76,7 +76,7 @@ public class SearchViewImpl extends Composite implements SearchView {
 				if (bands.size() > 0) {
 					compTable.setVisible(true);
 					compTable.update(bands);
-				}
+				} else compTable.setVisible(false);
 			}
 			
 		});

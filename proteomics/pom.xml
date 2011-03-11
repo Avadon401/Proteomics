@@ -90,6 +90,13 @@
   </dependency>
   
   
+  <!--  c3p0 dependency used for database connection pooling -->
+  <dependency>
+  	<groupId>c3p0</groupId>
+  	<artifactId>c3p0</artifactId>
+  	<version>0.9.1</version>
+  </dependency>
+  
   <!--  Hibernate dependencies -->
    	<dependency>
 		<groupId>org.hibernate</groupId>

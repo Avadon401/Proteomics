@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Set;
 
 import com.google.gwt.cell.client.CheckboxCell;
+import com.google.gwt.cell.client.ClickableTextCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.TableCellElement;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.Header;
@@ -24,8 +26,10 @@ import com.google.gwt.view.client.SelectionChangeEvent.Handler;
 import com.google.gwt.view.client.SelectionModel;
 
 import edu.unc.major.proteomics.client.Application;
+import edu.unc.major.proteomics.client.ui.widget.BandPopupWidget;
 import edu.unc.major.proteomics.share.dao.PageResults;
 import edu.unc.major.proteomics.share.model.Band;
+import edu.unc.major.proteomics.share.model.TppProtein;
 
 public class BandCellTable extends Composite {
 	Table<Band> cellTable;
@@ -109,12 +113,21 @@ public class BandCellTable extends Composite {
 
 	    // bait gene name
 	    Column<Band, String> baitColumn = new Column<
-	        Band, String>(new TextCell()) {
+	        Band, String>(new ClickableTextCell()) {
 	      @Override
 	      public String getValue(Band object) {
 				return object.getBait().getMutatedName();
 	      }
 	    };
+	    baitColumn.setFieldUpdater(new FieldUpdater<Band, String>() {
+	        public void update(int index, Band object, String value) {
+	        	int row = index%cellTable.getPageSize();
+	        	TableCellElement target = cellTable.getRowElement(row).getCells().getItem(1);
+	        	int left = target.getAbsoluteLeft()+target.getOffsetWidth();
+	        	int top = cellTable.getRowElement(row).getAbsoluteTop();
+	        	new BandPopupWidget().getDataAndShow(object.getId(),left,top);
+	        }
+	      });
 	    cellTable.addColumn(baitColumn, "Bait");
 
 	    // ms run name

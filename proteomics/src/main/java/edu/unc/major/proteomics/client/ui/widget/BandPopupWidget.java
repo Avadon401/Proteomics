@@ -20,9 +20,9 @@ public class BandPopupWidget extends ClassPopupWidget<Band> {
 	}
 	
 	private SafeHtmlBuilder addRow(String label, String value, SafeHtmlBuilder sb) {
-		sb.appendHtmlConstant("<tr><td align='right'>");
+		sb.appendHtmlConstant("<tr><th align='right' class='th'>");
 		sb.appendEscaped(label);
-		sb.appendHtmlConstant("</td><td align='left'>");
+		sb.appendHtmlConstant("</th><td align='left' class='td'>");
 		sb.appendEscaped(value);
 		sb.appendHtmlConstant("</td></tr>");
 		return sb;
