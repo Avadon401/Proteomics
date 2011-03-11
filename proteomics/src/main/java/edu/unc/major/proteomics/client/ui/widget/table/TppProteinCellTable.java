@@ -30,7 +30,7 @@ import edu.unc.major.proteomics.share.model.TppProtein;
 
 public class TppProteinCellTable extends Composite {
 	
-	CellTable<List<TppProtein>> cellTable;
+	Table<List<TppProtein>> cellTable;
 	private SimplePager pager;
 	private List<Long> bandIds;
 	private int numCols = 0;
@@ -44,7 +44,7 @@ public class TppProteinCellTable extends Composite {
 	    // Set a key provider that provides a unique key for each contact. If key is
 	    // used to identify contacts when fields (such as the name and address)
 	    // change.
-	    cellTable =  new CellTable<List<TppProtein>>(KeyProvider.TppProteinListKeyProvider);
+	    cellTable =  new Table<List<TppProtein>>(KeyProvider.TppProteinListKeyProvider);
 
 	    // Create a Pager to control the table.
 	    SimplePager.Resources pagerResources = GWT.create(SimplePager.Resources.class);

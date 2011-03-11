@@ -18,6 +18,15 @@ public class BandServiceImpl extends ProteomicsServlet implements BandService{
 
 	private static final long serialVersionUID = 1L;
 
+	public Band getById(final long id) {
+		Session session = gileadHibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		Query q = session.getNamedQuery("Band.byId");
+		q.setParameter("id", id);
+		Band band = (Band) q.uniqueResult();	
+		return band;
+	}
+	
 	public Set<Band> getByGeneSymbols(Set<String> geneSymbols) {
 		if (geneSymbols == null || geneSymbols.size() == 0) return null;
 		Set<Long> geneIds = new HashSet<Long>(geneSymbols.size());
@@ -28,8 +37,8 @@ public class BandServiceImpl extends ProteomicsServlet implements BandService{
 		session.beginTransaction();
 		Query q = session.getNamedQuery("Band.byGene.byId");
 		q.setParameterList("id", geneIds);
-		Set<Band> genes = new HashSet<Band>(q.list());	
-		return genes;
+		Set<Band> bands = new HashSet<Band>(q.list());	
+		return bands;
 	}
 	
 	public PageResults<Band> getByGeneSymbolsPage(Set<String> geneSymbols, final int start, final int length) {
@@ -39,6 +48,7 @@ public class BandServiceImpl extends ProteomicsServlet implements BandService{
 			if (DataStore.getGeneNames().containsKey(geneSymbol))
 				geneIds.addAll(DataStore.getGeneNames().get(geneSymbol));
 		}
+
 		Session session = gileadHibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		

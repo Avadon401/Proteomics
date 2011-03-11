@@ -8,6 +8,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.DisclosurePanel;
@@ -36,6 +37,8 @@ public class SearchViewImpl extends Composite implements SearchView {
 	InputListWidgetSearch searchBox;
 	@UiField
 	Button searchButton;
+	@UiField
+	Button clearButton;
 	@UiField
 	BandCellTable bandCellTable;
 	@UiField
@@ -68,28 +71,37 @@ public class SearchViewImpl extends Composite implements SearchView {
 		bandCellTable.addSelectionChangeHandler(new Handler() {
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
-				compTable.setVisible(true);
 				List<Band> bands = new ArrayList<Band>();
-				bands.addAll(bandCellTable.getSelectionModel().getSelectedSet());
-				compTable.update(bands);
+				bands.addAll(bandCellTable.getSelectionModel().getSelectedList());
+				if (bands.size() > 0) {
+					compTable.setVisible(true);
+					compTable.update(bands);
+				}
 			}
 			
 		});
 	}
 	
 	@UiHandler("searchButton")
-	void handleClick(ClickEvent e) {
-		//searchBox.deselectItem(true);
+	void handleSearchClick(ClickEvent e) {
+		searchBox.onClick();
 		disclosurePanel.setVisible(true);
 		dropShadow.setVisible(true);
+		bandCellTable.clearSelectedKeys();
 		bandCellTable.setVisible(true);
 		bandCellTable.update(searchBox.getItemsSelected());
+		preyCellTable.clearSelectedKeys();
 		preyCellTable.setVisible(true);
 		preyCellTable.update(searchBox.getItemsSelected());
 		siRNAValCellTable.setVisible(true);
 		siRNAValCellTable.update(searchBox.getItemsSelected());
+		compTable.setVisible(false);
 	}
 
+	@UiHandler("clearButton")
+	void handleClearClick(ClickEvent e) {
+		searchBox.clear();
+	}
 
 	@Override
 	public Widget asWidget() {

@@ -9,8 +9,8 @@ import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
-import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.Header;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
 import com.google.gwt.user.client.Window;
@@ -20,7 +20,6 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.AsyncDataProvider;
 import com.google.gwt.view.client.HasData;
-import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.SelectionChangeEvent.Handler;
 import com.google.gwt.view.client.SelectionModel;
 
@@ -29,10 +28,10 @@ import edu.unc.major.proteomics.share.dao.PageResults;
 import edu.unc.major.proteomics.share.model.Band;
 
 public class BandCellTable extends Composite {
-	CellTable<Band> cellTable;
+	Table<Band> cellTable;
 	private SimplePager pager;
 	private Set<String> geneSymbols;
-	final MultiSelectionModel<Band> selectionModel;
+	final OrderedMultiSelectionModel<Band, Long> selectionModel;
 	
 	public BandCellTable() {
 		VerticalPanel panel = new VerticalPanel();
@@ -41,7 +40,7 @@ public class BandCellTable extends Composite {
 	    // Set a key provider that provides a unique key for each contact. If key is
 	    // used to identify contacts when fields (such as the name and address)
 	    // change.
-	    cellTable =  new CellTable<Band>(KeyProvider.BandKeyProvider);
+	    cellTable =  new Table<Band>(KeyProvider.BandKeyProvider);
 
 	    // Create a Pager to control the table.
 	    SimplePager.Resources pagerResources = GWT.create(SimplePager.Resources.class);
@@ -50,7 +49,7 @@ public class BandCellTable extends Composite {
 	    pager.setPageSize(10);
 
 	    // Add a selection model so we can select cells.
-	    selectionModel = new MultiSelectionModel<Band>(KeyProvider.BandKeyProvider);
+	    selectionModel = new OrderedMultiSelectionModel<Band, Long>(KeyProvider.BandKeyProvider);
 	    cellTable.setSelectionModel(selectionModel);
 	    
 	    // Initialize the columns.
@@ -66,6 +65,29 @@ public class BandCellTable extends Composite {
 	}
 	
 	public void initTableColumns(final SelectionModel<Band> selectionModel) {
+		AdvancedColumn<Band, Boolean> checkColumn2 = new AdvancedColumn<Band, Boolean>(){
+			public List<ColumnWithHeader<Band, Boolean>> getColumns() {
+				List<ColumnWithHeader<Band, Boolean>> result = new ArrayList<ColumnWithHeader<Band, Boolean>>();
+				ColumnWithHeader<Band, Boolean> col = new ColumnWithHeader<Band, Boolean>(
+				        new CheckboxCell(true),
+					    new Header<String>(new TextCell()){
+							public String getValue() {
+								return "";
+							}	    		
+				    	}, true, false) {
+				    	public Boolean getValue(Band object) {
+					        return selectionModel.isSelected(object);
+					    }
+				    };
+				col.setFieldUpdater(new FieldUpdater<Band, Boolean>() {
+				      public void update(int index, Band object, Boolean value) {
+					        selectionModel.setSelected(object, value);
+					      }
+					    });
+				result.add(col);
+				return result;
+			}	
+		};
 		// Checkbox column. This table will uses a checkbox column for selection.
 	    // Alternatively, you can call cellTable.setSelectionEnabled(true) to enable
 	    // mouse selection.
@@ -90,11 +112,7 @@ public class BandCellTable extends Composite {
 	        Band, String>(new TextCell()) {
 	      @Override
 	      public String getValue(Band object) {
-	    	  String val = object.getBait().getGene().getGeneName();
-				if (!"".equals(object.getBait().getMutation())) {
-					val += " (" + object.getBait().getMutation() + ")";
-				}
-				return val;
+				return object.getBait().getMutatedName();
 	      }
 	    };
 	    cellTable.addColumn(baitColumn, "Bait");
@@ -167,16 +185,18 @@ public class BandCellTable extends Composite {
 		selectionModel.addSelectionChangeHandler(handler);
 	}
 	
-	public MultiSelectionModel<Band> getSelectionModel() {
+	public OrderedMultiSelectionModel<Band, Long> getSelectionModel() {
 		return selectionModel;
 	}
 	
 	public List<Long> getSelectedKeys() {
-		List<Long> keys = new ArrayList<Long>();
-		for (Band b : selectionModel.getSelectedSet()) {
-			keys.add((Long)KeyProvider.BandKeyProvider.getKey(b));
+		return selectionModel.getSelectedKeys();
+	}
+	
+	public void clearSelectedKeys() {
+		for (Band b : selectionModel.getSelectedList()) {
+			selectionModel.setSelected(b, false);
 		}
-		return keys;
 	}
 
 }

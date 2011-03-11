@@ -11,4 +11,6 @@ public interface BandService extends RemoteService{
 	public Set<Band> getByGeneSymbols(Set<String> geneSymbols);
 	
 	public PageResults<Band> getByGeneSymbolsPage(Set<String> geneSymbols, int start, int length);
+	
+	public Band getById(final long id);
 }

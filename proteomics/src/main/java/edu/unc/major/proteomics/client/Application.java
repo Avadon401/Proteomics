@@ -85,23 +85,7 @@ public class Application implements EntryPoint
 		
 		RootPanel.get("content").add(appWidget);
 		historyHandler.handleCurrentHistory();
-	
-		Set<String> geneSymbols = new HashSet<String>();
-		geneSymbols.add("FAM123A");
-		bandService.getByGeneSymbols(geneSymbols, new AsyncCallback<Set<Band>>() {
 
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-				Window.alert("duh");
-			}
-
-			@Override
-			public void onSuccess(Set<Band> result) {
-				//Window.alert("holy shit " + String.valueOf(result.size()));
-			}
-			
-		});
 		// Throw away the loading message that users see while GWT
 		// starts up and is able to finish loading its resources.
 		final Element lm = RootPanel.get("loadingmessage").getElement();

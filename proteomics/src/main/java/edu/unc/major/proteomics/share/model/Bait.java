@@ -14,6 +14,7 @@ public class Bait extends LightEntity implements Serializable{
 	private NcbiGene gene;
 	private String mutation;
 	private Set<Band> bands = new HashSet<Band>();
+	private Long geneID;
 	
 	public Bait() {}
 	
@@ -23,6 +24,14 @@ public class Bait extends LightEntity implements Serializable{
 	
 	public void setId(final Long id) {
 		this.id = id;
+	}
+	
+	public Long getGeneID() {
+		return geneID;
+	}
+	
+	public void setGeneID(final Long geneID) {
+		this.geneID = geneID;
 	}
 	
 	public NcbiGene getGene() {
@@ -48,6 +57,14 @@ public class Bait extends LightEntity implements Serializable{
 	
 	public void setBands(final Set<Band> bands) {
 		this.bands = bands;
+	}
+	
+	public String getMutatedName() {
+		String val = getGene().getGeneName();
+		if (!"".equals(getMutation())) {
+			val += " (" + getMutation() + ")";
+		}
+		return val;
 	}
 	
 	

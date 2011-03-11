@@ -17,6 +17,8 @@ public class Band extends LightEntity implements Serializable {
 	private String name;
 	private Set<TppProtein> proteins = new HashSet<TppProtein>();
 	private Integer proteinCount;
+	private Experiment experiment;
+	private Integer baitCount;
 	
 	public Band() {}
 	
@@ -68,4 +70,19 @@ public class Band extends LightEntity implements Serializable {
 		this.proteinCount = proteinCount;
 	}
 	
+	public Experiment getExperiment() {
+		return experiment;
+	}
+	
+	public void setExperiment(final Experiment experiment) {
+		this.experiment = experiment;
+	}
+	
+	public Integer getBaitCount() {
+		return baitCount;
+	}
+	
+	public void setBaitCount(final Integer baitCount) {
+		this.baitCount = baitCount;
+	}
 }

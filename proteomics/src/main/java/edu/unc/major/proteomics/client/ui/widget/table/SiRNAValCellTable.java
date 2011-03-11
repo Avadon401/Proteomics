@@ -27,7 +27,7 @@ import edu.unc.major.proteomics.share.model.SiRNAVal;
 
 public class SiRNAValCellTable extends Composite {
 
-	CellTable<SiRNAVal> cellTable;
+	Table<SiRNAVal> cellTable;
 	private SimplePager pager;
 	private Set<String> geneSymbols;
 
@@ -38,7 +38,7 @@ public class SiRNAValCellTable extends Composite {
 		// Set a key provider that provides a unique key for each contact. If key is
 		// used to identify contacts when fields (such as the name and address)
 		// change.
-		cellTable =  new CellTable<SiRNAVal>(KeyProvider.SiRNAValKeyProvider);
+		cellTable =  new Table<SiRNAVal>(KeyProvider.SiRNAValKeyProvider);
 
 		// Create a Pager to control the table.
 		SimplePager.Resources pagerResources = GWT.create(SimplePager.Resources.class);
@@ -46,12 +46,7 @@ public class SiRNAValCellTable extends Composite {
 		pager.setDisplay(cellTable);
 		pager.setPageSize(10);
 
-		// Add a selection model so we can select cells.
-		final MultiSelectionModel<SiRNAVal> selectionModel = new MultiSelectionModel<SiRNAVal>(KeyProvider.SiRNAValKeyProvider);
-		cellTable.setSelectionModel(selectionModel);
-
-		// Initialize the columns.
-		initTableColumns(selectionModel);
+		initTableColumns();
 
 		// Add the CellList to the adapter in the database.
 		provider.addDataDisplay(cellTable);
@@ -62,7 +57,7 @@ public class SiRNAValCellTable extends Composite {
 		panel.setCellHorizontalAlignment(pager, HasHorizontalAlignment.ALIGN_CENTER);
 	}
 
-	public void initTableColumns(final SelectionModel<SiRNAVal> selectionModel) {
+	public void initTableColumns() {
 
 
 		// gene list

@@ -3,11 +3,12 @@ package edu.unc.major.proteomics.client.ui.widget.table;
 import java.util.Set;
 
 import com.google.gwt.cell.client.CheckboxCell;
+import com.google.gwt.cell.client.ClickableTextCell;
 import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.cell.client.TextCell;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.dom.client.TableCellElement;
 import com.google.gwt.safehtml.shared.SafeHtmlUtils;
-import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.SimplePager;
 import com.google.gwt.user.cellview.client.SimplePager.TextLocation;
@@ -22,15 +23,16 @@ import com.google.gwt.view.client.MultiSelectionModel;
 import com.google.gwt.view.client.SelectionModel;
 
 import edu.unc.major.proteomics.client.Application;
+import edu.unc.major.proteomics.client.ui.widget.BandPopupWidget;
 import edu.unc.major.proteomics.share.dao.PageResults;
-import edu.unc.major.proteomics.share.model.Band;
 import edu.unc.major.proteomics.share.model.TppProtein;
 
 public class PreyCellTable extends Composite {
 
-	CellTable<TppProtein> cellTable;
+	Table<TppProtein> cellTable;
 	private SimplePager pager;
 	private Set<String> geneSymbols;
+	private MultiSelectionModel<TppProtein> selectionModel;
 	
 	public PreyCellTable() {
 		VerticalPanel panel = new VerticalPanel();
@@ -39,7 +41,7 @@ public class PreyCellTable extends Composite {
 	    // Set a key provider that provides a unique key for each contact. If key is
 	    // used to identify contacts when fields (such as the name and address)
 	    // change.
-	    cellTable =  new CellTable<TppProtein>(KeyProvider.TppProteinKeyProvider);
+	    cellTable =  new Table<TppProtein>(KeyProvider.TppProteinKeyProvider);
 
 	    // Create a Pager to control the table.
 	    SimplePager.Resources pagerResources = GWT.create(SimplePager.Resources.class);
@@ -48,7 +50,7 @@ public class PreyCellTable extends Composite {
 	    pager.setPageSize(10);
 
 	    // Add a selection model so we can select cells.
-	    final MultiSelectionModel<TppProtein> selectionModel = new MultiSelectionModel<TppProtein>(KeyProvider.TppProteinKeyProvider);
+	   selectionModel = new MultiSelectionModel<TppProtein>(KeyProvider.TppProteinKeyProvider);
 	    cellTable.setSelectionModel(selectionModel);
 	    
 	    // Initialize the columns.
@@ -90,15 +92,20 @@ public class PreyCellTable extends Composite {
 	    cellTable.addColumn(preyColumn, "Prey");
 
 	    // bait gene name
-	    Column<TppProtein, String> baitColumn = new Column<TppProtein, String>(new TextCell()) {
+	    Column<TppProtein, String> baitColumn = new Column<TppProtein, String>(new ClickableTextCell()) {
 	      public String getValue(TppProtein object) {
-	    	  String val = object.getBand().getBait().getGene().getGeneName();
-				if (!"".equals(object.getBand().getBait().getMutation())) {
-					val += " (" + object.getBand().getBait().getMutation() + ")";
-				}
-				return val;
+	    	  return object.getBand().getBait().getMutatedName();
 	      }
 	    };
+	    baitColumn.setFieldUpdater(new FieldUpdater<TppProtein, String>() {
+	        public void update(int index, TppProtein object, String value) {
+	        	int row = index%cellTable.getPageSize();
+	        	TableCellElement target = cellTable.getRowElement(row).getCells().getItem(2);
+	        	int left = target.getAbsoluteLeft()+target.getOffsetWidth();
+	        	int top = cellTable.getRowElement(row).getAbsoluteTop();
+	        	new BandPopupWidget().getDataAndShow(object.getBand().getId(),left,top);
+	        }
+	      });
 	    cellTable.addColumn(baitColumn, "Bait");
 	    
 	    // # unique peptides
@@ -167,6 +174,12 @@ public class PreyCellTable extends Composite {
 	
 	public AsyncDataProvider<TppProtein> getProvider() {
 		return provider;
+	}
+	
+	public void clearSelectedKeys() {
+		for (TppProtein b : selectionModel.getSelectedSet()) {
+			selectionModel.setSelected(b, false);
+		}
 	}
 
 }

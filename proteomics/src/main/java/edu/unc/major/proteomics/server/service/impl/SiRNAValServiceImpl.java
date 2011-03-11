@@ -12,6 +12,7 @@ import edu.unc.major.proteomics.server.DataStore;
 import edu.unc.major.proteomics.server.ProteomicsServlet;
 import edu.unc.major.proteomics.share.dao.PageResults;
 import edu.unc.major.proteomics.share.model.SiRNAVal;
+import edu.unc.major.proteomics.share.model.TppProtein;
 import edu.unc.major.proteomics.share.service.SiRNAValService;
 
 public class SiRNAValServiceImpl extends ProteomicsServlet implements SiRNAValService{
@@ -25,6 +26,7 @@ public class SiRNAValServiceImpl extends ProteomicsServlet implements SiRNAValSe
 			if (DataStore.getGeneNames().containsKey(geneSymbol))
 				geneIds.addAll(DataStore.getGeneNames().get(geneSymbol));
 		}
+
 		Session session = gileadHibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		

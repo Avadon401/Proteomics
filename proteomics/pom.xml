@@ -28,6 +28,8 @@
   </repository>
   
   <repository>
+  
+  
   <releases>
     <enabled>true</enabled>
   </releases>
@@ -39,8 +41,40 @@
  <url>http://google-web-toolkit.googlecode.com/svn/2.1.0/gwt/maven/</url>
 </repository>
   
+  <repository>
+          <id>jboss-public-repository-group</id>
+          <name>JBoss Public Maven Repository Group</name>
+          <url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+          <layout>default</layout>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+          </snapshots>
+        </repository>
+  
   
   </repositories>
+        <pluginRepositories>
+        <pluginRepository>
+          <id>jboss-public-repository-group</id>
+          <name>JBoss Public Maven Repository Group</name>
+          <url>https://repository.jboss.org/nexus/content/groups/public-jboss/</url>
+          <layout>default</layout>
+          <releases>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+          </releases>
+          <snapshots>
+            <enabled>true</enabled>
+            <updatePolicy>never</updatePolicy>
+          </snapshots>
+        </pluginRepository>
+      </pluginRepositories>
+  
   
     <dependencies>
    <dependency>
@@ -137,19 +171,24 @@
           
         </configuration>
       </plugin>
-      <!--
-          If you want to use the target/web.xml file mergewebxml produces,
-          tell the war plugin to use it.
-          Also, exclude what you want from the final artifact here.
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
                 <configuration>
-                    <webXml>target/web.xml</webXml>
+                    <webXml>war/WEB-INF/web.xml</webXml>
                     <warSourceExcludes>.gwt-tmp/**</warSourceExcludes>
+                    <webResources>
+                    	<resource>
+                    		<directory>src/main/resources/edu/unc/major/proteomics/public</directory>
+                    		<excludes>
+                    			<exclude>Application.html</exclude>
+                    		</excludes>
+                    	</resource>
+                    </webResources>
                 </configuration>
             </plugin>
-            -->
 
       <plugin>
           <groupId>org.apache.maven.plugins</groupId>
@@ -161,6 +200,7 @@
           </configuration>
       </plugin>
     </plugins>
+    <finalName>ROOT</finalName>
   </build>
 
 </project>

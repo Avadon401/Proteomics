@@ -37,7 +37,6 @@ public abstract class InputListWidget extends Composite {
     private MultiWordSuggestOracle oracle;
     private Boolean isPaste = false;
     private Boolean isKeyboard = true;
-    private Boolean isUp = false;
     protected String[] geneNames;
     final private BulletList list = new BulletList();
     private String output = "";
@@ -45,8 +44,6 @@ public abstract class InputListWidget extends Composite {
     
     protected AsyncCallback<Boolean[]> callback = new AsyncCallback<Boolean[]>() {
 		public void onSuccess(Boolean[] result) {
-			for (String name : geneNames)
-				GWT.log(name);
 			for (int i = 0; i < result.length; ++i) {
 				deselectItemText(geneNames[i], result[i]);
 			}		
@@ -127,7 +124,7 @@ public abstract class InputListWidget extends Composite {
                     if ("".equals(itemBox.getValue().trim()) && list.getWidgetCount() > 1) {
                         ListItem li = (ListItem) list.getWidget(list.getWidgetCount() - 2);
                         Paragraph p = (Paragraph) li.getWidget(0);
-                        if (itemsSelected.contains(p.getText())) {
+                        while (itemsSelected.contains(p.getText())) {
                             itemsSelected.remove(p.getText());
                             GWT.log("Removing selected item '" + p.getText() + "'", null);
                             GWT.log("Remaining: " + itemsSelected, null);
@@ -261,12 +258,18 @@ public abstract class InputListWidget extends Composite {
     	return geneNames;
     }
     
-    public Set<String> getGeneNamesList() {
-    	return new HashSet<String>(Arrays.asList(geneNames));
-    }
-    
     public Set<String> getItemsSelected() {
     	return new HashSet<String>(itemsSelected);
+    }
+    
+    public void onClick() {
+    	itemBox.setText(parseInput(true));
+    	itemsSelected.addAll(Arrays.asList(geneNames));
+    }
+    
+    public void clear() {
+    	itemsSelected.clear();
+    	while(list.getWidgetCount() > 1) list.remove(0);
     }
 
 }

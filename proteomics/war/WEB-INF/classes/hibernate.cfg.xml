@@ -13,6 +13,16 @@
         <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
         <property name="show_sql">true</property>
         
+        <!-- Connection pooling settings -->
+        <property name="hibernate.connection.pool_size">2</property>
+        <property name="hibernate.c3p0.timeout">300</property>
+        <property name="hibernate.c3p0.max_size">20</property>
+        <property name="hibernate.c3p0.min_size">5</property>
+        <property name="hibernate.c3p0.idle_test_period">200</property>
+        <property name="hibernate.c3p0.acquire_increment">1</property>
+        <property name="hibernate.c3p0.max_statements">50</property>
+        <!-- <property name="hibernate.batch_size">0</property> -->
+        
         <!-- Enable Hibernate's automatic session context management -->
         <property name="current_session_context_class">thread</property>      
         
@@ -23,5 +33,13 @@
         <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/NcbiAlias.hbm.xml"/>
         <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/Band.hbm.xml"/>
         <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/Bait.hbm.xml"/>
+        <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/CellLine.hbm.xml"/>
+        <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/Pathway.hbm.xml"/>
+        <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/SiRNAData.hbm.xml"/>
+        <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/SiRNAExperiment.hbm.xml"/>
+        <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/SiRNAType.hbm.xml"/>
+        <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/SiRNAVal.hbm.xml"/>
+        <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/Protocol.hbm.xml"/>
+        <mapping resource="edu/unc/major/proteomics/server/hibernate/mapping/Experiment.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>

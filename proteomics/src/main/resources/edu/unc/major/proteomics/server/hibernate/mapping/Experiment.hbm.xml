@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="edu.unc.major.proteomics.share.model.Experiment" table="Experiment" catalog="signal">
+        <id name="id" type="java.lang.Long">
+            <column name="ID" />
+            <generator class="identity" />
+        </id>
+        <property name="name" type="string">
+            <column name="Name"/>
+        </property>
+        <property name="notes" type="string">
+            <column name="Notes"/>
+        </property>
+      		
+        <many-to-one name="bait" class="edu.unc.major.proteomics.share.model.Bait" column="BaitID"/>
+        
+        <many-to-one name="biologicalMaterial" class="edu.unc.major.proteomics.share.model.Protocol" column="GrowProtocolID" lazy="false"/>         
+        <many-to-one name="affinityPurification" class="edu.unc.major.proteomics.share.model.Protocol" column="IpProtocolID" lazy="false"/>    
+        <many-to-one name="peptidePreparation" class="edu.unc.major.proteomics.share.model.Protocol" column="DigestProtocolID" lazy="false"/>
+        <many-to-one name="lcms" class="edu.unc.major.proteomics.share.model.Protocol" column="PeptideFragID" lazy="false"/>
+    </class>
+
+</hibernate-mapping>

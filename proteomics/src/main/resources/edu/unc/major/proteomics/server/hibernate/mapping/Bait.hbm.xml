@@ -11,6 +11,9 @@
         <property name="mutation" type="string">
             <column name="Mutation"/>
         </property>
+        <property name="geneID" type="java.lang.Long" insert="false" update="false">
+            <column name="GeneID"/>
+        </property>
       		
         <many-to-one name="gene" class="edu.unc.major.proteomics.share.model.NcbiGene" column="GeneID"/> 
         

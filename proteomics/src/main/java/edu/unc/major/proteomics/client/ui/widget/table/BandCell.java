@@ -30,7 +30,6 @@ public class BandCell extends AbstractCell<Band>{
 		sb.appendHtmlConstant("</td></tr><tr><td colspan='3'>");
 		sb.appendEscaped(bandName);
 		sb.appendHtmlConstant("</td></tr></table>");
-		
 	}
 
 }

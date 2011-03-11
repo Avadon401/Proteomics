@@ -36,6 +36,7 @@ public class TppProteinServiceImpl extends ProteomicsServlet implements TppProte
 			if (DataStore.getGeneNames().containsKey(geneSymbol))
 				geneIds.addAll(DataStore.getGeneNames().get(geneSymbol));
 		}
+
 		Session session = gileadHibernateUtil.getSessionFactory().getCurrentSession();
 		session.beginTransaction();
 		

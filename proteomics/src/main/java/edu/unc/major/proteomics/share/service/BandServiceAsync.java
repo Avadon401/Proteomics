@@ -11,4 +11,6 @@ public interface BandServiceAsync {
 	public void getByGeneSymbols(Set<String> geneSymbols, AsyncCallback<Set<Band>> callback);
 	
 	public void getByGeneSymbolsPage(Set<String> geneSymbols, int start, int length, AsyncCallback<PageResults<Band>> callback);
+	
+	public void getById(final long id, AsyncCallback<Band> callback);
 }
