@@ -68,7 +68,7 @@
 	left join fetch v.data.experiment
 	left join fetch v.data.experiment.pathway
 	where v.data.gene.id in (:id)  or exists(from NcbiGene g where g.id in (:id) and g in elements(v.data.alias.genes))
-	order by v.repOverViaMean, v.repOverViaMedian, v.repOverViaStd desc
+	order by v.repOverViaMedian, v.repOverViaMean, v.repOverViaStd desc
 </query> 
 
  <query name="SiRNAVal.byGene.byId,size">
