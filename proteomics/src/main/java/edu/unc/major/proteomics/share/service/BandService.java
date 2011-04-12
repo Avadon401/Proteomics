@@ -1,5 +1,6 @@
 package edu.unc.major.proteomics.share.service;
 
+import java.util.List;
 import java.util.Set;
 
 import com.google.gwt.user.client.rpc.RemoteService;
@@ -13,4 +14,6 @@ public interface BandService extends RemoteService{
 	public PageResults<Band> getByGeneSymbolsPage(Set<String> geneSymbols, int start, int length);
 	
 	public Band getById(final long id);
+	
+	public PageResults<Band> getAll();
 }

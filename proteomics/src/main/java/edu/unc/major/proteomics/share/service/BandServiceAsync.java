@@ -1,5 +1,6 @@
 package edu.unc.major.proteomics.share.service;
 
+import java.util.List;
 import java.util.Set;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
@@ -13,4 +14,6 @@ public interface BandServiceAsync {
 	public void getByGeneSymbolsPage(Set<String> geneSymbols, int start, int length, AsyncCallback<PageResults<Band>> callback);
 	
 	public void getById(final long id, AsyncCallback<Band> callback);
+	
+	public void getAll(AsyncCallback<PageResults<Band>> callback);
 }

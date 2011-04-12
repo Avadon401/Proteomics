@@ -8,6 +8,15 @@
 	</welcome-file-list>
 	
 	  <!-- Servlets -->
+	<servlet>
+	    <servlet-name>export</servlet-name>
+	    <servlet-class>edu.unc.major.proteomics.server.servlet.ExportServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+	    <servlet-name>export</servlet-name>
+	    <url-pattern>/edu.unc.major.proteomics.Application/export.csv</url-pattern>
+	</servlet-mapping>
+	  
 	<servlet> 
 		<servlet-name>tppProteinIndProteinServiceImpl</servlet-name> 
 		<servlet-class>edu.unc.major.proteomics.server.service.impl.TppProteinIndProteinServiceImpl</servlet-class> 
@@ -66,5 +75,14 @@
 	<servlet-mapping> 
 		<servlet-name>siRNAValServiceImpl</servlet-name> 
 		<url-pattern>/edu.unc.major.proteomics.Application/siRNAValService</url-pattern> 
+	</servlet-mapping>
+	<servlet> 
+		<servlet-name>exportServiceImpl</servlet-name> 
+		<servlet-class>edu.unc.major.proteomics.server.service.impl.ExportServiceImpl</servlet-class> 
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping> 
+		<servlet-name>exportServiceImpl</servlet-name> 
+		<url-pattern>/edu.unc.major.proteomics.Application/exportService</url-pattern> 
 	</servlet-mapping>
 </web-app>

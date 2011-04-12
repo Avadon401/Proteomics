@@ -28,6 +28,13 @@
         </set> 
     </class>
     
+<query name="Band.all">
+	from Band b
+	inner join fetch b.bait
+	inner join fetch b.bait.gene
+	order by b.id desc
+</query> 
+    
 <query name="Band.byId">
 	from Band b
 	inner join fetch b.bait

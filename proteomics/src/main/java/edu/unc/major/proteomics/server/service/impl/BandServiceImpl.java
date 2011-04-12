@@ -17,6 +17,14 @@ import edu.unc.major.proteomics.share.service.BandService;
 public class BandServiceImpl extends ProteomicsServlet implements BandService{
 
 	private static final long serialVersionUID = 1L;
+	
+	public PageResults<Band> getAll() {
+		Session session = gileadHibernateUtil.getSessionFactory().getCurrentSession();
+		session.beginTransaction();
+		Query q = session.getNamedQuery("Band.all");
+		List<Band> bands = new ArrayList<Band>(q.list());	
+		return new PageResults<Band>(bands,bands.size());
+	}
 
 	public Band getById(final long id) {
 		Session session = gileadHibernateUtil.getSessionFactory().getCurrentSession();

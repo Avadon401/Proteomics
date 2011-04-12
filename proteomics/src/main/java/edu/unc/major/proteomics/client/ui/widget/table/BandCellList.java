@@ -1,7 +1,6 @@
 package edu.unc.major.proteomics.client.ui.widget.table;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import com.google.gwt.user.cellview.client.CellList;
 import com.google.gwt.user.cellview.client.HasKeyboardPagingPolicy.KeyboardPagingPolicy;
@@ -23,20 +22,14 @@ import edu.unc.major.proteomics.share.model.Band;
 public class BandCellList extends Composite{
 	
 	private CellList<Band> cellList;
-	private Set<String> geneSymbols;
 	private SimplePager pager;
 	
 	public BandCellList() {
-		this(new HashSet<String>());
-	}
-	
-	public BandCellList(final Set<String> geneSymbols) {
-		this.geneSymbols = geneSymbols;
 		final FlowPanel panel = new FlowPanel();
 		initWidget(panel);
 		BandCell bandCell = new BandCell();
 		cellList = new CellList<Band>(bandCell, KeyProvider.BandKeyProvider);
-		cellList.setPageSize(5);
+		cellList.setPageSize(20);
 		cellList.setKeyboardPagingPolicy(KeyboardPagingPolicy.INCREASE_RANGE);
 		
 		final MultiSelectionModel<Band> selectionModel = new MultiSelectionModel<Band>(KeyProvider.BandKeyProvider);
@@ -73,7 +66,7 @@ public class BandCellList extends Composite{
 			}
 			
 		};
-		Application.bandService.getByGeneSymbolsPage(geneSymbols, start, length, callback);
+		Application.bandService.getAll(callback);
 	}
 	
 	private AsyncDataProvider<Band> provider = new AsyncDataProvider<Band>() {
@@ -84,13 +77,7 @@ public class BandCellList extends Composite{
 		}	
 	};
 	
-	public void setGeneSymbols(final Set<String> geneSymbols) {
-		this.geneSymbols = geneSymbols;
-	}
-	
-	public void update(final Set<String> geneSymbols) {
-		setGeneSymbols(geneSymbols);
-		//pager.setPage(0);
+	public void update() {
 		updateTable(0,pager.getPageSize());
 	}
 	

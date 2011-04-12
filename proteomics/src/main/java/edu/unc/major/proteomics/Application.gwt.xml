@@ -19,7 +19,8 @@
 	  <servlet path="/constantService" class="edu.unc.major.proteomics.server.service.impl.ConstantServiceImpl"/>
 	  <servlet path="/bandService" class="edu.unc.major.proteomics.server.service.impl.BandServiceImpl"/>
 	  <servlet path="/siRNAValService" class="edu.unc.major.proteomics.server.service.impl.SiRNAValServiceImpl"/>
-	  
+	  <servlet path="/exportService" class="edu.unc.major.proteomics.server.service.impl.ExportServiceImpl"/>
+	  <servlet path="/export.csv" class="edu.unc.major.proteomics.server.servlet.ExportServlet"/>
 	  
       <!-- Specify the application specific style sheet.              -->
       <stylesheet src='Application.css' />
